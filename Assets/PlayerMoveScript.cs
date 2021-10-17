@@ -1,26 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerMoveScript : MonoBehaviour
 {
-    public float moveSpeed = 10.0f;
-    public float rotateSpeed = 180;
-    private Rigidbody rigidbody;
-    // Start is called before the first frame update
-    void Start()
-    {
-        rigidbody = GetComponent<Rigidbody>();
-    }
-
-    public void MovetoX(int x)
+    private Touch touch;
+	[SerializeField]
+    private float speed;
+	private float frontSpeed = 1f;
+	private void Start()
 	{
-        
+		speed = 0.01f;
 	}
+	private void Update()
+	{
+		if (Input.touchCount > 0)
+		{
+			touch = Input.GetTouch(0);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+			if (touch.phase == TouchPhase.Moved)
+			{
+				transform.position = new Vector3(transform.position.x + touch.deltaPosition.x * speed, transform.position.y, transform.position.z);
+			}
+		}
+		transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + frontSpeed);
+	}
 }
+
