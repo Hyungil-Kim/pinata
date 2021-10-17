@@ -8,10 +8,11 @@ public class PlayerMoveScript : MonoBehaviour
     private Touch touch;
 	[SerializeField]
     private float speed;
+	[SerializeField]
 	private float frontSpeed = 1f;
 	private void Start()
 	{
-		speed = 0.01f;
+		
 	}
 	private void Update()
 	{
