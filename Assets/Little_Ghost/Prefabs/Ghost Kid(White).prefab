@@ -41,9 +41,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4249446538854170042}
   - component: {fileID: 4428067996133956191}
-  - component: {fileID: -8620000618234389233}
   - component: {fileID: -7756328530762286868}
   - component: {fileID: -332135983647583808}
+  - component: {fileID: 6379685729775156119}
   m_Layer: 0
   m_Name: Ghost Kid(White)
   m_TagString: Untagged
@@ -86,19 +86,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &-8620000618234389233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3581137616627181312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bbf5aeb577417d479868b3c15253cc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  score: 100
 --- !u!136 &-7756328530762286868
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -129,6 +116,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6379685729775156119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3581137616627181312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d10b424c62f855499acf8148d9fd608, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 0
 --- !u!1 &5065581876293822621
 GameObject:
   m_ObjectHideFlags: 0
