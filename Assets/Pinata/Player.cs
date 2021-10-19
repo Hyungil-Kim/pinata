@@ -70,6 +70,7 @@ public class Player : MonoBehaviour
 				}
 				break;
 		}
+
 	}
 	private void OnCollisionEnter(Collision collision)
 	{
@@ -95,6 +96,7 @@ public class Player : MonoBehaviour
 		if (collision.transform.tag == "ChangeItem")
 		{
 			gameManager.setStateEnd();
+			gameManager.setEnemyOn();
 		}
 		if (collision.transform.tag == "Enemy")
 		{

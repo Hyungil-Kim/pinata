@@ -41,17 +41,21 @@ public class GameManager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
         enemys = GameObject.FindGameObjectsWithTag("Enemy");
-        items  = GameObject.FindGameObjectsWithTag("Item");
+        items = GameObject.FindGameObjectsWithTag("Item");
         roads = GameObject.FindGameObjectsWithTag("Road");
         camera2 = GameObject.FindWithTag("MainCamera");
         spline = GameObject.FindWithTag("Spline").GetComponent<Dreamteck.Splines.Spline>();
+     
     }
 
     // Update is called once per frame
     void Update()
     {
-		
-	}
+        foreach (var enemy in enemys)
+        {
+            enemy.SetActive(false);
+        }
+    }
     public void setStateEnd()
     {
         CurrentState = State.End;
@@ -60,4 +64,11 @@ public class GameManager : MonoBehaviour
     {
         CurrentState = State.Start;
     }
+    public void setEnemyOn()
+	{
+        foreach(var enemy in enemys)
+		{
+            enemy.SetActive(true);
+		}
+	}
 }
