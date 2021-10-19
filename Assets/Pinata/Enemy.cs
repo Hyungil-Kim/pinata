@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     public GameObject enemy;
     private bool spawn;
     private GameObject[] roads;
+    private Dreamteck.Splines.Spline spline;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +17,7 @@ public class Enemy : MonoBehaviour
         target = gameManager.player;
         spawn = true;
         roads = gameManager.roads;
+        spline = gameManager.spline;
     }
 
     // Update is called once per frame

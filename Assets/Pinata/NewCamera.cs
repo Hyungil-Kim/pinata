@@ -18,32 +18,9 @@ public class NewCamera : MonoBehaviour
     }
     void Update()
     {
-        
-		switch (gameManager.CurrentState)
-		{
-			case GameManager.State.Start:
-				
-					var camerPos = target.transform.position;
-					camerPos.y += 10;
-					camerPos.z -= 23;
-					//Debug.Log(transform.position);
-					transform.position = camerPos;
-					transform.LookAt(target); ;
-
-			
-				break;
-			case GameManager.State.End:
-				
-					camerPos = target.transform.position;
-					camerPos.y += 10;
-					camerPos.z += 23;
-					//Debug.Log(transform.position);
-					transform.position = camerPos;
-					transform.LookAt(target); ;
-								
-				break;
-		}
-		
-
-    }
+		var camerPos = target.transform.position - target.transform.forward * 23;
+		camerPos.y += 10;
+		transform.position = camerPos;
+		transform.LookAt(target);
+	}
 }

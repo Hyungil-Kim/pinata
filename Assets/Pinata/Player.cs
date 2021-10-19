@@ -4,97 +4,107 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private Touch touch;
-    [SerializeField]
-    private float speed;
-    [SerializeField]
-    private float frontSpeed = 1f;
-    private int score;
-    private GameManager gameManager;
-    public float lift = 1f;
-    public float power = 10f;
+	private Touch touch;
+
+	private int score;
+	private GameManager gameManager;
+	public float lift = 1f;
+	public float power = 10f;
+	private Dreamteck.Splines.SplineFollower player;
+	private Dreamteck.Splines.Spline spline;
 	// Start is called before the first frame update
 	private void Awake()
 	{
-        gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
-		
+		gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
+
 	}
 	void Start()
-    {
-        score = gameManager.score;
+	{
+		score = gameManager.score;
+		player = gameManager.player.GetComponent<Dreamteck.Splines.SplineFollower>();
+		spline = gameManager.spline;
+	}
 
-    }
+	// Update is called once per frame
+	void FixedUpdate()
+	{
+		switch (gameManager.CurrentState)
+		{
+			case GameManager.State.Start:
+				if (Input.touchCount > 0)
+				{
+					touch = Input.GetTouch(0);
+					if (touch.phase == TouchPhase.Moved)
+					{
+						var inputOffset = player.motion.offset.x + touch.deltaPosition.x * 0.1f;
+						if (inputOffset > 21f)
+						{
+							inputOffset = 21f;
+						}
+						if (inputOffset < -21f)
+						{
+							inputOffset = -21f;
+						}
+						player.motion.offset = new Vector2(inputOffset, 0);
+					}
+				}
+				break;
+			case GameManager.State.End:
+				if (Input.touchCount > 0)
+				{
+					touch = Input.GetTouch(0);
+					if (touch.phase == TouchPhase.Moved)
+					{
+						var inputOffset = player.motion.offset.x - touch.deltaPosition.x * 0.1f;
+						if (inputOffset > 21f)
+						{
+							inputOffset = 21f;
+						}
+						if (inputOffset < -21f)
+						{
+							inputOffset = -21f;
+						}
+						player.motion.offset = new Vector2(inputOffset, 0);
 
-    // Update is called once per frame
-    void Update()
-    {
-        switch (gameManager.CurrentState)
-        {
-
-            case GameManager.State.Start:
-                transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + frontSpeed);
-                if (Input.touchCount > 0)
-                {
-                    touch = Input.GetTouch(0);
-
-                    if (touch.phase == TouchPhase.Moved)
-                    {
-                        transform.position = new Vector3(transform.position.x + touch.deltaPosition.x * speed, transform.position.y, transform.position.z);
-                    }
-                }
-                break;
-                case GameManager.State.End:
-                transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y + 180, transform.rotation.z, transform.rotation.w);
-                transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - frontSpeed);
-                if (Input.touchCount > 0)
-                {
-                    touch = Input.GetTouch(0);
-
-                    if (touch.phase == TouchPhase.Moved)
-                    {
-                        transform.position = new Vector3(transform.position.x - touch.deltaPosition.x * speed, transform.position.y, transform.position.z);
-                    }
-                }
-                break;
-        }
-
-		
+					}
+				}
+				break;
+		}
 	}
 	private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.transform.tag == "Obstacle" )
-        {
-            var colscore = collision.transform.GetComponent<Obstacle>().score;
-            if(score >= colscore)
+	{
+		if (collision.transform.tag == "Obstacle")
+		{
+			var colscore = collision.transform.GetComponent<Obstacle>().score;
+			if (score >= colscore)
 			{
-                score -= colscore;
-                transform.localScale -= new Vector3(0.05f, 0.05f, 0.05f);
+				score -= colscore;
+				transform.localScale -= new Vector3(0.05f, 0.05f, 0.05f);
 			}
-             Debug.Log(score);
-            
-        }
-        if(collision.transform.tag == "Item")
+			Debug.Log(score);
+		}
+		if (collision.transform.tag == "Item")
 		{
-            var colscore = collision.transform.GetComponent<Item>().score;
-            score += colscore;
-            transform.localScale += new Vector3(0.05f, 0.05f, 0.05f);
-            Destroy(collision.gameObject);
-            Debug.Log(transform.localScale);
-            Debug.Log(score);
-        }
-        if(collision.transform.tag == "ChangeItem")
+			var colscore = collision.transform.GetComponent<Item>().score;
+			score += colscore;
+			transform.localScale += new Vector3(0.05f, 0.05f, 0.05f);
+			Destroy(collision.gameObject);
+			Debug.Log(transform.localScale);
+			Debug.Log(score);
+		}
+		if (collision.transform.tag == "ChangeItem")
 		{
-            gameManager.setStateEnd();
-        }
-        if(collision.transform.tag == "Enemy")
+			gameManager.setStateEnd();
+		}
+		if (collision.transform.tag == "Enemy")
 		{
-            var force = collision.gameObject.transform.position - transform.position;
-            force.Normalize();
-            force.y += lift;
-            collision.rigidbody.AddForce(force * power);
+			var force = collision.gameObject.transform.position - transform.position;
+			force.Normalize();
+			force.y += lift;
+			collision.rigidbody.AddForce(force * power);
 
-        }
-    }
-	
-  
+		}
+	}
+
+
 }

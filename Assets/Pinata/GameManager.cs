@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] items;
     public GameObject camera2;
     public GameObject[] roads;
+    public Dreamteck.Splines.Spline spline;
     public int score;
     private State state;
 
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
         items  = GameObject.FindGameObjectsWithTag("Item");
         roads = GameObject.FindGameObjectsWithTag("Road");
         camera2 = GameObject.FindWithTag("MainCamera");
+        spline = GameObject.FindWithTag("Spline").GetComponent<Dreamteck.Splines.Spline>();
     }
 
     // Update is called once per frame
@@ -53,5 +55,9 @@ public class GameManager : MonoBehaviour
     public void setStateEnd()
     {
         CurrentState = State.End;
+    }
+    public void setStateStart()
+    {
+        CurrentState = State.Start;
     }
 }

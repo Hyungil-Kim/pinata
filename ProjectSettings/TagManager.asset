@@ -9,6 +9,8 @@ TagManager:
   - Item
   - Enemy
   - ChangeItem
+  - Spline
+  - Road
   layers:
   - Default
   - TransparentFX
