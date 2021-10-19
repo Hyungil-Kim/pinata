@@ -123,6 +123,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &183893652
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 183893653}
+  - component: {fileID: 183893654}
+  m_Layer: 0
+  m_Name: Enemy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &183893653
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 183893652}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.895647, y: 4.2443466, z: 4.816497}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &183893654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 183893652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 968b546d0826ab24a8600c7595e0ca2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 8657598896772951067, guid: 4f1ef8b6760be5e43b670f669e43fc1f, type: 3}
 --- !u!1 &1009699819
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,7 +258,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1001 &1267077748
 PrefabInstance:
@@ -228,16 +272,12 @@ PrefabInstance:
       value: Map
       objectReference: {fileID: 0}
     - target: {fileID: 5754570903625009801, guid: a2a622bcdc847b9419facc08be61f393, type: 3}
-      propertyPath: roadArr.Array.data[1]
+      propertyPath: roadArr.Array.data[9]
       value: 
-      objectReference: {fileID: 8213099501582479302, guid: 9febd297e6a21cd44908d9d56c698812, type: 3}
-    - target: {fileID: 5754570903625009801, guid: a2a622bcdc847b9419facc08be61f393, type: 3}
-      propertyPath: roadArr.Array.data[6]
-      value: 
-      objectReference: {fileID: 8213099501582479302, guid: 9febd297e6a21cd44908d9d56c698812, type: 3}
+      objectReference: {fileID: 5756979531656640161, guid: 941de8e5d16a2f5429e095b991932446, type: 3}
     - target: {fileID: 5754570903625009802, guid: a2a622bcdc847b9419facc08be61f393, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5754570903625009802, guid: a2a622bcdc847b9419facc08be61f393, type: 3}
       propertyPath: m_LocalPosition.x
@@ -363,7 +403,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1486663615
 MonoBehaviour:
@@ -377,4 +417,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b1eb314ccd4b5745a67ef17a0ab6752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 12.65, z: -23.12}
+  offset: {x: 0, y: 0, z: 0}

@@ -251,7 +251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3581137616627181312, guid: a2f018cc74620884486989cfadc01cbc, type: 3}
       propertyPath: m_TagString
-      value: Monster
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 4249446538854170042, guid: a2f018cc74620884486989cfadc01cbc, type: 3}
       propertyPath: m_RootOrder
@@ -321,7 +321,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3581137616627181312, guid: a2f018cc74620884486989cfadc01cbc, type: 3}
       propertyPath: m_TagString
-      value: Monster
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 4249446538854170042, guid: a2f018cc74620884486989cfadc01cbc, type: 3}
       propertyPath: m_RootOrder
@@ -391,7 +391,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3581137616627181312, guid: a2f018cc74620884486989cfadc01cbc, type: 3}
       propertyPath: m_TagString
-      value: Monster
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 4249446538854170042, guid: a2f018cc74620884486989cfadc01cbc, type: 3}
       propertyPath: m_RootOrder
@@ -461,7 +461,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3581137616627181312, guid: a2f018cc74620884486989cfadc01cbc, type: 3}
       propertyPath: m_TagString
-      value: Monster
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 4249446538854170042, guid: a2f018cc74620884486989cfadc01cbc, type: 3}
       propertyPath: m_RootOrder
@@ -531,7 +531,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3581137616627181312, guid: a2f018cc74620884486989cfadc01cbc, type: 3}
       propertyPath: m_TagString
-      value: Monster
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 4249446538854170042, guid: a2f018cc74620884486989cfadc01cbc, type: 3}
       propertyPath: m_RootOrder
@@ -601,7 +601,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3581137616627181312, guid: a2f018cc74620884486989cfadc01cbc, type: 3}
       propertyPath: m_TagString
-      value: Monster
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 4249446538854170042, guid: a2f018cc74620884486989cfadc01cbc, type: 3}
       propertyPath: m_RootOrder
@@ -671,7 +671,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3581137616627181312, guid: a2f018cc74620884486989cfadc01cbc, type: 3}
       propertyPath: m_TagString
-      value: Monster
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 4249446538854170042, guid: a2f018cc74620884486989cfadc01cbc, type: 3}
       propertyPath: m_RootOrder
@@ -741,7 +741,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3581137616627181312, guid: a2f018cc74620884486989cfadc01cbc, type: 3}
       propertyPath: m_TagString
-      value: Monster
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 4249446538854170042, guid: a2f018cc74620884486989cfadc01cbc, type: 3}
       propertyPath: m_RootOrder

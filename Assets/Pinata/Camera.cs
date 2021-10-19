@@ -5,46 +5,45 @@ using UnityEngine;
 public class Camera : MonoBehaviour
 {
     private Transform target;
-    public Vector3 offset = new Vector3(0, 3, -6);
-    private float currentDgree;
-
-    private void Start()
+    public Vector3 offset;
+    private GameManager gameManager;
+	private void Awake()
+	{
+        gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
+		
+	}
+	private void Start()
     {
-       
-        target = GameObject.FindWithTag("Player").transform;
+		target = gameManager.player.transform;
     }
     void Update()
     {
-        if (target != null)
-        {
+        
+		switch (gameManager.CurrentState)
+		{
+			case GameManager.State.Start:
+				
+					var camerPos = target.transform.position;
+					camerPos.y += 10;
+					camerPos.z -= 23;
+					//Debug.Log(transform.position);
+					transform.position = camerPos;
+					transform.LookAt(target); ;
 
-            transform.position = target.position + offset;
-
-            if (Input.touchCount == 2)
-            {
-                var touch0 = Input.touches[0];
-                var touch1 = Input.touches[1];
-
-                if (touch0.phase == TouchPhase.Began || touch1.phase == TouchPhase.Began)
-                    return;
-
-                var touch0PrevPos = touch0.position - touch0.deltaPosition;
-                var touch1PrevPos = touch1.position - touch1.deltaPosition;
-
-                var prevDir = touch1PrevPos - touch0PrevPos;
-                var currDir = touch1.position - touch0.position;
-
-                var dot = Vector3.Dot(Vector2.up, prevDir.normalized);
-                var prevDegree = Mathf.Acos(dot) * Mathf.Rad2Deg;
-
-                dot = Vector3.Dot(Vector2.up, currDir.normalized);
-                var currdegree = Mathf.Acos(dot) * Mathf.Rad2Deg;
-
-                currentDgree += currdegree - prevDegree;
-            }
-            transform.LookAt(target);
-            transform.Rotate(0f, 0f, currentDgree);
-        }
+			
+				break;
+			case GameManager.State.End:
+				
+					camerPos = target.transform.position;
+					camerPos.y += 10;
+					camerPos.z += 23;
+					//Debug.Log(transform.position);
+					transform.position = camerPos;
+					transform.LookAt(target); ;
+								
+				break;
+		}
+		
 
     }
 }
