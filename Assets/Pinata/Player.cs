@@ -11,18 +11,20 @@ public class Player : MonoBehaviour
 	public float lift = 1f;
 	public float power = 10f;
 	private Dreamteck.Splines.SplineFollower player;
-	private Dreamteck.Splines.Spline spline;
+	private Dreamteck.Splines.SplineComputer splineComputer;
+
 	// Start is called before the first frame update
 	private void Awake()
 	{
+		player = GetComponent<Dreamteck.Splines.SplineFollower>();
+		splineComputer = GameObject.FindWithTag("Spline").GetComponent<Dreamteck.Splines.SplineComputer>();
 		gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
+		player.spline = splineComputer;
 
 	}
 	void Start()
 	{
 		score = gameManager.score;
-		player = gameManager.player.GetComponent<Dreamteck.Splines.SplineFollower>();
-		spline = gameManager.spline;
 	}
 
 	// Update is called once per frame
@@ -45,7 +47,7 @@ public class Player : MonoBehaviour
 						{
 							inputOffset = -21f;
 						}
-						player.motion.offset = new Vector2(inputOffset, 0);
+						player.motion.offset = new Vector2(inputOffset, player.motion.offset.y) ;
 					}
 				}
 				break;

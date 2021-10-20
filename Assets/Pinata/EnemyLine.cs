@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Obstacle : MonoBehaviour
+public class EnemyLine : MonoBehaviour
 {
-    public int score;
     private Dreamteck.Splines.SplinePositioner splinePositioner;
     private Dreamteck.Splines.SplineComputer splineComputer;
+
     void Start()
     {
         splinePositioner = GetComponent<Dreamteck.Splines.SplinePositioner>();
@@ -14,6 +14,7 @@ public class Obstacle : MonoBehaviour
         splinePositioner.spline = splineComputer;
 
     }
+    // Update is called once per frame
     void Update()
     {
         

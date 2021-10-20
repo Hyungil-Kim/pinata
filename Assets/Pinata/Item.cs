@@ -6,13 +6,15 @@ public class Item : MonoBehaviour
 {
    
     public int score;
-    // Start is called before the first frame update
+    private Dreamteck.Splines.SplinePositioner splinePositioner;
+    private Dreamteck.Splines.SplineComputer splineComputer;
     void Start()
     {
-       
-    }
+        splinePositioner = GetComponent<Dreamteck.Splines.SplinePositioner>();
+        splineComputer = GameObject.FindWithTag("Spline").GetComponent<Dreamteck.Splines.SplineComputer>();
+        splinePositioner.spline = splineComputer;
 
-    // Update is called once per frame
+    }
     void Update()
     {
         

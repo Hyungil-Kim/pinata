@@ -16,10 +16,10 @@ public class NewCamera : MonoBehaviour
     {
 		target = gameManager.player.transform;
     }
-    void Update()
+    void LateUpdate()
     {
-		var camerPos = target.transform.position - target.transform.forward * 23;
-		camerPos.y += 10;
+		var camerPos = target.position - target.forward * 23;
+		camerPos.y = 10;
 		transform.position = camerPos;
 		transform.LookAt(target);
 	}
