@@ -6,12 +6,13 @@ public class Player : MonoBehaviour
 {
 	private Touch touch;
 
-	private int score;
+	private double score;
 	private GameManager gameManager;
 	public float lift = 1f;
 	public float power = 10f;
 	private Dreamteck.Splines.SplineFollower player;
 	private Dreamteck.Splines.SplineComputer splineComputer;
+	private double scoreMove = 0f;
 
 	// Start is called before the first frame update
 	private void Awake()
@@ -25,8 +26,20 @@ public class Player : MonoBehaviour
 	void Start()
 	{
 		score = gameManager.score;
-	}
+		
 
+	}
+	private void Update()
+	{
+		if (score == 0)
+		{
+			scoreMove = 1 - 0.02;
+		}
+		else
+		{
+			scoreMove = 1 - (score / 10000);
+		}
+	}
 	// Update is called once per frame
 	void FixedUpdate()
 	{
@@ -47,11 +60,26 @@ public class Player : MonoBehaviour
 						{
 							inputOffset = -21f;
 						}
-						player.motion.offset = new Vector2(inputOffset, player.motion.offset.y) ;
+						player.motion.offset = new Vector2(inputOffset, player.motion.offset.y);
 					}
 				}
 				break;
+			case GameManager.State.Turn:
+				player.followSpeed = 0;
+				if(player.motion.rotationOffset.y >=180)
+				{
+				}
+				else
+				{
+					player.motion.rotationOffset += new Vector3(0, 1f, 0);
+				}
+
+				break;
 			case GameManager.State.End:
+				if (player.GetPercent() < scoreMove)
+				{
+					player.followSpeed = 0;
+				}
 				if (Input.touchCount > 0)
 				{
 					touch = Input.GetTouch(0);
@@ -97,8 +125,9 @@ public class Player : MonoBehaviour
 		}
 		if (collision.transform.tag == "ChangeItem")
 		{
-			gameManager.setStateEnd();
+			gameManager.setStateTurn();
 			gameManager.setEnemyOn();
+			
 		}
 		if (collision.transform.tag == "Enemy")
 		{

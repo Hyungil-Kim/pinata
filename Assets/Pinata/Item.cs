@@ -5,7 +5,7 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
    
-    public int score;
+    public double score;
     private Dreamteck.Splines.SplinePositioner splinePositioner;
     private Dreamteck.Splines.SplineComputer splineComputer;
     void Start()

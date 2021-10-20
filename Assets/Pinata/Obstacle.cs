@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    public int score;
+    public double score;
     private Dreamteck.Splines.SplinePositioner splinePositioner;
     private Dreamteck.Splines.SplineComputer splineComputer;
     void Start()

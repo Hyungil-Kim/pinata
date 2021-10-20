@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public enum State
     {
         Start,
+        Turn,
         End
     }
     public GameObject player;
@@ -16,8 +17,9 @@ public class GameManager : MonoBehaviour
     public GameObject[] items;
     public GameObject camera2;
     public GameObject[] roads;
+    public GameObject enemyParent;
     public Dreamteck.Splines.Spline spline;
-    public int score;
+    public double score;
     private State state;
 
     
@@ -35,16 +37,14 @@ public class GameManager : MonoBehaviour
 	private void Awake()
 	{
         CurrentState = State.Start;
+        player = GameObject.FindWithTag("Player");
     }
 	void Start()
     {
-        player = GameObject.FindWithTag("Player");
         obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
         enemys = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach (var enemy in enemys)
-        {
-            enemy.SetActive(false);
-        }
+        enemyParent = GameObject.FindWithTag("Respawn");
+        enemyParent.SetActive(false);
         items = GameObject.FindGameObjectsWithTag("Item");
         roads = GameObject.FindGameObjectsWithTag("Road");
         camera2 = GameObject.FindWithTag("MainCamera");
@@ -59,15 +59,16 @@ public class GameManager : MonoBehaviour
     {
         CurrentState = State.End;
     }
+    public void setStateTurn()
+	{
+        CurrentState = State.Turn;
+    }
     public void setStateStart()
     {
         CurrentState = State.Start;
     }
     public void setEnemyOn()
 	{
-        foreach(var enemy in enemys)
-		{
-            enemy.SetActive(true);
-		}
+        enemyParent.SetActive(true);
 	}
 }
