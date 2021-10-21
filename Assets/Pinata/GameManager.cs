@@ -6,7 +6,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public enum State
-    {
+    {   
+        Intro,
         Start,
         Turn,
         End
@@ -21,6 +22,8 @@ public class GameManager : MonoBehaviour
     public Dreamteck.Splines.Spline spline;
     public double score;
     private State state;
+    private Dreamteck.Splines.SplineFollower follower;
+    private float saveSpeed;
 
     
 	public State CurrentState
@@ -29,15 +32,31 @@ public class GameManager : MonoBehaviour
 		set
 		{
 			state = value;
-			
+			switch (state)
+			{
+				case State.Intro:
+					break;
+				case State.Start:
+                    follower.followSpeed = saveSpeed;
+                    break;
+				case State.Turn:
+					break;
+				case State.End:
+                    follower.followSpeed = saveSpeed;
+                    follower.motion.rotationOffset = Vector3.zero;
+                    follower.SetPercent(1d);
+                    break;
+			}
 		}
 	}
 
 	// Start is called before the first frame update
 	private void Awake()
 	{
-        CurrentState = State.Start;
+        CurrentState = State.Intro;
         player = GameObject.FindWithTag("Player");
+        follower = player.GetComponent<Dreamteck.Splines.SplineFollower>();
+        saveSpeed = follower.followSpeed;
     }
 	void Start()
     {
@@ -53,7 +72,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
     public void setStateEnd()
     {
@@ -61,14 +80,20 @@ public class GameManager : MonoBehaviour
     }
     public void setStateTurn()
 	{
+        player.GetComponentInChildren<Animator>().SetTrigger("runTowalk");
         CurrentState = State.Turn;
     }
     public void setStateStart()
     {
         CurrentState = State.Start;
     }
+    public void setStateIntro()
+    {
+        CurrentState = State.Intro;
+    }
     public void setEnemyOn()
 	{
         enemyParent.SetActive(true);
 	}
+
 }

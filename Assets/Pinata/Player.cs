@@ -13,6 +13,10 @@ public class Player : MonoBehaviour
 	private Dreamteck.Splines.SplineFollower player;
 	private Dreamteck.Splines.SplineComputer splineComputer;
 	private double scoreMove = 0f;
+	private Animator animator;
+	private bool gameStart;
+	private float offsety;
+	private float time;
 
 	// Start is called before the first frame update
 	private void Awake()
@@ -21,13 +25,12 @@ public class Player : MonoBehaviour
 		splineComputer = GameObject.FindWithTag("Spline").GetComponent<Dreamteck.Splines.SplineComputer>();
 		gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
 		player.spline = splineComputer;
-
+		animator = GetComponentInChildren<Animator>();
 	}
 	void Start()
 	{
 		score = gameManager.score;
-		
-
+		offsety = player.motion.offset.y;
 	}
 	private void Update()
 	{
@@ -45,7 +48,34 @@ public class Player : MonoBehaviour
 	{
 		switch (gameManager.CurrentState)
 		{
+			case GameManager.State.Intro:
+				player.followSpeed = 0;
+				animator.speed = 0;
+				if (Input.touchCount > 0)
+				{
+					touch = Input.GetTouch(0);
+					if (touch.phase == TouchPhase.Began)
+					{
+						gameStart = true;
+					}
+				}
+				if (gameStart)
+				{
+					time += Time.deltaTime;
+					offsety = Mathf.Lerp(5f, -2f, time / 2f);
+					player.motion.offset = new Vector2(0, offsety);
+				}
+				if (offsety == -2f)
+				{
+					animator.speed = 1;
+				}
+				if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Die"))
+				{
+					gameManager.CurrentState = GameManager.State.Start;
+				}
+				break;
 			case GameManager.State.Start:
+
 				if (Input.touchCount > 0)
 				{
 					touch = Input.GetTouch(0);
@@ -65,8 +95,9 @@ public class Player : MonoBehaviour
 				}
 				break;
 			case GameManager.State.Turn:
+
 				player.followSpeed = 0;
-				if(player.motion.rotationOffset.y >=180)
+				if (player.motion.rotationOffset.y >= 180)
 				{
 				}
 				else
@@ -76,6 +107,7 @@ public class Player : MonoBehaviour
 
 				break;
 			case GameManager.State.End:
+
 				if (player.GetPercent() < scoreMove)
 				{
 					player.followSpeed = 0;
@@ -99,6 +131,7 @@ public class Player : MonoBehaviour
 					}
 				}
 				break;
+
 		}
 
 	}
@@ -125,9 +158,11 @@ public class Player : MonoBehaviour
 		}
 		if (collision.transform.tag == "ChangeItem")
 		{
+			Destroy(collision.gameObject);
 			gameManager.setStateTurn();
 			gameManager.setEnemyOn();
-			
+
+
 		}
 		if (collision.transform.tag == "Enemy")
 		{
