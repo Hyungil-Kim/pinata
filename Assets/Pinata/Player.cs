@@ -29,10 +29,10 @@ public class Player : MonoBehaviour
 		gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
 		player.spline = splineComputer;
 		animator = GetComponentInChildren<Animator>();
-		ui = gameManager.UiController.GetComponent<UIManager>();
 	}
 	void Start()
 	{
+		ui = gameManager.UiController.GetComponent<UIManager>();
 		score = gameManager.score;
 		offsety = player.motion.offset.y;
 	}
@@ -78,12 +78,12 @@ public class Player : MonoBehaviour
 					touch = Input.GetTouch(0);
 					if (touch.phase == TouchPhase.Moved)
 					{
-						var inputOffset = player.motion.offset.x + touch.deltaPosition.x * 0.1f;
-						if (inputOffset > 21f)
+						var inputOffset = player.motion.offset.x + touch.deltaPosition.x * 0.05f;
+						if (inputOffset >= 21f)
 						{
 							inputOffset = 21f;
 						}
-						if (inputOffset < -21f)
+						if (inputOffset <= -21f)
 						{
 							inputOffset = -21f;
 						}
@@ -114,16 +114,16 @@ public class Player : MonoBehaviour
 					touch = Input.GetTouch(0);
 					if (touch.phase == TouchPhase.Moved)
 					{
-						var inputOffset = player.motion.offset.x - touch.deltaPosition.x * 0.1f;
-						if (inputOffset > 21f)
+						var inputOffset = player.motion.offset.x - touch.deltaPosition.x * 0.05f;
+						if (inputOffset >= 21f)
 						{
 							inputOffset = 21f;
 						}
-						if (inputOffset < -21f)
+						if (inputOffset <= -21f)
 						{
 							inputOffset = -21f;
 						}
-						player.motion.offset = new Vector2(inputOffset, 0);
+						player.motion.offset = new Vector2(inputOffset, player.motion.offset.y);
 
 					}
 				}

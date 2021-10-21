@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
         Intro,
         Start,
         Turn,
-        End
+        End,
+        Finish
     }
     public GameObject player;
     public GameObject[] obstacles;
@@ -25,13 +26,14 @@ public class GameManager : MonoBehaviour
     public Dreamteck.Splines.SplineFollower follower;
     private State state;
     private float saveSpeed;
+    public double totalScore = 0f;
 
     public UIManager UiController;
     public int stageLevel =1;
     public Button playButton;
     public Text levelText;
     public bool gameStart;
-
+    public double percentScore;
     public State CurrentState
 	{
 		get { return state; }
@@ -43,18 +45,21 @@ public class GameManager : MonoBehaviour
 				case State.Intro:
 					break;
 				case State.Start:
-                    follower.followSpeed = saveSpeed;
-                    UiController.showGoal.gameObject.SetActive(true);
-                    UiController.Restart.gameObject.SetActive(true);
-                    UiController.Option.gameObject.SetActive(true);
-                    break;
+					follower.followSpeed = saveSpeed;
+					UiController.showGoal.gameObject.SetActive(true);
+					UiController.restart.gameObject.SetActive(true);
+					UiController.option.gameObject.SetActive(true);
+					break;
 				case State.Turn:
 					break;
 				case State.End:
-                    follower.followSpeed = saveSpeed;
-                    follower.motion.rotationOffset = Vector3.zero;
-                    follower.SetPercent(1d);
-                    break;
+					follower.followSpeed = saveSpeed;
+					follower.motion.rotationOffset = Vector3.zero;
+					follower.SetPercent(1d);
+					break;
+				case State.Finish:
+                    percentScore = score / totalScore;
+					break;
 			}
 		}
 	}
@@ -77,7 +82,10 @@ public class GameManager : MonoBehaviour
         items = GameObject.FindGameObjectsWithTag("Item");
         roads = GameObject.FindGameObjectsWithTag("Road");
         camera2 = GameObject.FindWithTag("MainCamera");
-        
+        foreach(var item in items)
+		{
+            totalScore += item.GetComponent<Item>().score;
+		}
     }
 
     // Update is called once per frame
@@ -107,5 +115,5 @@ public class GameManager : MonoBehaviour
 	{
         enemyParent.SetActive(true);
 	}
-  
+
 }
