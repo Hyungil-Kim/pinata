@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class GameManager : MonoBehaviour
@@ -21,12 +22,17 @@ public class GameManager : MonoBehaviour
     public GameObject enemyParent;
     public Dreamteck.Splines.Spline spline;
     public double score;
+    public Dreamteck.Splines.SplineFollower follower;
     private State state;
-    private Dreamteck.Splines.SplineFollower follower;
     private float saveSpeed;
 
-    
-	public State CurrentState
+    public UIManager UiController;
+    public int stageLevel =1;
+    public Button playButton;
+    public Text levelText;
+    public bool gameStart;
+
+    public State CurrentState
 	{
 		get { return state; }
 		set
@@ -38,6 +44,9 @@ public class GameManager : MonoBehaviour
 					break;
 				case State.Start:
                     follower.followSpeed = saveSpeed;
+                    UiController.showGoal.gameObject.SetActive(true);
+                    UiController.Restart.gameObject.SetActive(true);
+                    UiController.Option.gameObject.SetActive(true);
                     break;
 				case State.Turn:
 					break;
@@ -57,6 +66,7 @@ public class GameManager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         follower = player.GetComponent<Dreamteck.Splines.SplineFollower>();
         saveSpeed = follower.followSpeed;
+        UiController = GameObject.FindWithTag("UIController").GetComponent<UIManager>();
     }
 	void Start()
     {
@@ -67,11 +77,13 @@ public class GameManager : MonoBehaviour
         items = GameObject.FindGameObjectsWithTag("Item");
         roads = GameObject.FindGameObjectsWithTag("Road");
         camera2 = GameObject.FindWithTag("MainCamera");
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         
     }
     public void setStateEnd()
@@ -95,5 +107,5 @@ public class GameManager : MonoBehaviour
 	{
         enemyParent.SetActive(true);
 	}
-
+  
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -8,15 +9,17 @@ public class Player : MonoBehaviour
 
 	private double score;
 	private GameManager gameManager;
+	private UIManager ui;
 	public float lift = 1f;
 	public float power = 10f;
 	private Dreamteck.Splines.SplineFollower player;
 	private Dreamteck.Splines.SplineComputer splineComputer;
 	private double scoreMove = 0f;
 	private Animator animator;
-	private bool gameStart;
+	public bool gameStart;
 	private float offsety;
 	private float time;
+	
 
 	// Start is called before the first frame update
 	private void Awake()
@@ -26,6 +29,7 @@ public class Player : MonoBehaviour
 		gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
 		player.spline = splineComputer;
 		animator = GetComponentInChildren<Animator>();
+		ui = gameManager.UiController.GetComponent<UIManager>();
 	}
 	void Start()
 	{
@@ -51,14 +55,7 @@ public class Player : MonoBehaviour
 			case GameManager.State.Intro:
 				player.followSpeed = 0;
 				animator.speed = 0;
-				if (Input.touchCount > 0)
-				{
-					touch = Input.GetTouch(0);
-					if (touch.phase == TouchPhase.Began)
-					{
-						gameStart = true;
-					}
-				}
+				gameStart = ui.gameStart; 
 				if (gameStart)
 				{
 					time += Time.deltaTime;
