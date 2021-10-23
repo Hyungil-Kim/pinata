@@ -7,7 +7,7 @@ public class NewCamera : MonoBehaviour
     private Transform target;
     public Vector3 offset;
     private GameManager gameManager;
-	public float speed = 5f;
+	public float speed =5f;
 	private float time = 0f;
 	public bool finish = false;
 	private Dreamteck.Splines.SplineFollower follower;
@@ -28,7 +28,7 @@ public class NewCamera : MonoBehaviour
 		switch (gameManager.CurrentState)
 		{
 			case GameManager.State.Intro:
-				followCamera();
+				IntroCamera();
 				break;
 			case GameManager.State.Start:
 				saveSpeed = follower.followSpeed;
@@ -44,7 +44,11 @@ public class NewCamera : MonoBehaviour
 					zoomOutCamera();
 					if (transform.position.y > 9.5f)
 					{
-						changeState();
+						time += Time.deltaTime;
+						if (time > 2f)
+						{
+							changeState();
+						}
 					}
 				}
 				if (follower.motion.rotationOffset.y >= 180 && !finish)
@@ -55,20 +59,32 @@ public class NewCamera : MonoBehaviour
 			case GameManager.State.End:
 				followCamera();
 				break;
+			case GameManager.State.Finish:
+
+				break;
 			
 		}
 
 	}
-	private void followCamera()
+	private void IntroCamera()
 	{
-		var cameraPos = target.position - target.forward * 23;
+		var cameraPos = target.position + target.right * 10;
 		cameraPos.y += 10;
 		transform.position = Vector3.Lerp(transform.position, cameraPos, Time.deltaTime * speed);
 		transform.LookAt(target);
 	}
+	private void followCamera()
+	{
+		var extraPos = new Vector3(target.position.x,target.position.y + 9,target.position.z);
+		var cameraPos = target.position - target.forward * 15;
+		cameraPos.y += 10;
+		transform.position = Vector3.Lerp(transform.position, cameraPos, Time.deltaTime * speed);
+		transform.LookAt(extraPos);
+
+	}
 	private void zoomInCaremra()
 	{
-		var cameraPos = target.position - transform.forward * Mathf.Lerp(23f, 15f, 1f);
+		var cameraPos = target.position - transform.forward * Mathf.Lerp(10f, 23f, 1f);
 		cameraPos.y = 10;
 		transform.position = Vector3.Lerp(transform.position, cameraPos, Time.deltaTime * speed);
 		transform.LookAt(target);
@@ -76,7 +92,7 @@ public class NewCamera : MonoBehaviour
 	}
 	private void zoomOutCamera()
 	{
-		var cameraPos = target.position - transform.forward * Mathf.Lerp(15f, 23f, 1f);
+		var cameraPos = target.position - transform.forward * Mathf.Lerp(23f, 10f, 1f);
 		cameraPos.y = 10;
 		transform.position = Vector3.Lerp(transform.position, cameraPos, Time.deltaTime * speed);
 		transform.LookAt(target);
@@ -101,4 +117,5 @@ public class NewCamera : MonoBehaviour
 		
 		gameManager.setStateEnd();
 	}
+	
 }

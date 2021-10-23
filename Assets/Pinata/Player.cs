@@ -19,8 +19,10 @@ public class Player : MonoBehaviour
 	public bool gameStart;
 	private float offsety;
 	private float time;
-	
-
+	private float stoptime = 0f;
+	private float life = 2;
+	private bool idle;
+	public float limitScore = 500;
 	// Start is called before the first frame update
 	private void Awake()
 	{
@@ -40,7 +42,7 @@ public class Player : MonoBehaviour
 	{
 		if (score == 0)
 		{
-			scoreMove = 1 - 0.02;
+			scoreMove = 1 - 0.05;
 		}
 		else
 		{
@@ -55,7 +57,7 @@ public class Player : MonoBehaviour
 			case GameManager.State.Intro:
 				player.followSpeed = 0;
 				animator.speed = 0;
-				gameStart = ui.gameStart; 
+				gameStart = ui.gameStart;
 				if (gameStart)
 				{
 					time += Time.deltaTime;
@@ -79,23 +81,25 @@ public class Player : MonoBehaviour
 					if (touch.phase == TouchPhase.Moved)
 					{
 						var inputOffset = player.motion.offset.x + touch.deltaPosition.x * 0.05f;
-						if (inputOffset >= 21f)
+						if (inputOffset >= 5.5f)
 						{
-							inputOffset = 21f;
+							inputOffset = 5.5f;
 						}
-						if (inputOffset <= -21f)
+						if (inputOffset <= -3.5f)
 						{
-							inputOffset = -21f;
+							inputOffset = -3.5f;
 						}
 						player.motion.offset = new Vector2(inputOffset, player.motion.offset.y);
 					}
 				}
+
 				break;
 			case GameManager.State.Turn:
 
 				player.followSpeed = 0;
 				if (player.motion.rotationOffset.y >= 180)
 				{
+					//애니메이션?
 				}
 				else
 				{
@@ -104,31 +108,46 @@ public class Player : MonoBehaviour
 
 				break;
 			case GameManager.State.End:
-
-				if (player.GetPercent() < scoreMove)
+				stoptime += Time.deltaTime;
+				if (stoptime > 2f)
 				{
-					player.followSpeed = 0;
-				}
-				if (Input.touchCount > 0)
-				{
-					touch = Input.GetTouch(0);
-					if (touch.phase == TouchPhase.Moved)
+					if (player.GetPercent() < scoreMove)
 					{
-						var inputOffset = player.motion.offset.x - touch.deltaPosition.x * 0.05f;
-						if (inputOffset >= 21f)
+						player.followSpeed = 0;
+						//날라가기?
+					}
+					if (Input.touchCount > 0)
+					{
+						touch = Input.GetTouch(0);
+						if (touch.phase == TouchPhase.Moved)
 						{
-							inputOffset = 21f;
+							var inputOffset = player.motion.offset.x - touch.deltaPosition.x * 0.05f;
+							if (inputOffset >= 5.5f)
+							{
+								inputOffset = 5.5f;
+							}
+							if (inputOffset <= -3.5f)
+							{
+								inputOffset = -3.5f;
+							}
+							player.motion.offset = new Vector2(inputOffset, player.motion.offset.y);
 						}
-						if (inputOffset <= -21f)
+					}
+					if(player.followSpeed <= 5 && !idle)
+					{
+						player.GetComponentInChildren<Animator>().SetTrigger("runToidle");
+						foreach(var enemy in gameManager.enemys)
 						{
-							inputOffset = -21f;
+							enemy.GetComponent<Animator>().SetTrigger("idleTodance");
 						}
-						player.motion.offset = new Vector2(inputOffset, player.motion.offset.y);
-
+						idle = true;
 					}
 				}
 				break;
-
+			case GameManager.State.Finish:
+				{
+				}
+				break;
 		}
 
 	}
@@ -136,13 +155,24 @@ public class Player : MonoBehaviour
 	{
 		if (collision.transform.tag == "Obstacle")
 		{
-			var colscore = collision.transform.GetComponent<Obstacle>().score;
-			if (score >= colscore)
+			if (gameManager.score < limitScore)
 			{
-				score -= colscore;
-				transform.localScale -= new Vector3(0.05f, 0.05f, 0.05f);
+				var colscore = collision.transform.GetComponent<Obstacle>().score;
+				if (score >= colscore)
+				{
+					score -= colscore;
+					transform.localScale -= new Vector3(0.05f, 0.05f, 0.05f);
+					if (gameManager.score == 0)
+					{
+						life--;
+					}
+					if (life == 0)
+					{
+						//날라가기
+					}
+				}
+				Debug.Log(score);
 			}
-			Debug.Log(score);
 		}
 		if (collision.transform.tag == "Item")
 		{
@@ -167,9 +197,13 @@ public class Player : MonoBehaviour
 			force.Normalize();
 			force.y += lift;
 			collision.rigidbody.AddForce(force * power);
+			//날라가기
 
 		}
 	}
-
-
+	//날라기기 함수
+	private void playerForce()
+	{
+		;
+	}
 }

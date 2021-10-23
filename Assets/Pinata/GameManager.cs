@@ -96,6 +96,7 @@ public class GameManager : MonoBehaviour
     }
     public void setStateEnd()
     {
+        player.GetComponentInChildren<Animator>().SetTrigger("walkTorun");
         CurrentState = State.End;
     }
     public void setStateTurn()
@@ -106,6 +107,11 @@ public class GameManager : MonoBehaviour
     public void setStateStart()
     {
         CurrentState = State.Start;
+    }
+    public void setStateFinish()
+	{
+        CurrentState = State.Finish;
+        player.GetComponentInChildren<Animator>().SetTrigger("runTo");
     }
     public void setStateIntro()
     {
