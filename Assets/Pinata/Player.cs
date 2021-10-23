@@ -108,9 +108,6 @@ public class Player : MonoBehaviour
 
 				break;
 			case GameManager.State.End:
-				stoptime += Time.deltaTime;
-				if (stoptime > 2f)
-				{
 					if (player.GetPercent() < scoreMove)
 					{
 						player.followSpeed = 0;
@@ -142,7 +139,7 @@ public class Player : MonoBehaviour
 						}
 						idle = true;
 					}
-				}
+				
 				break;
 			case GameManager.State.Finish:
 				{

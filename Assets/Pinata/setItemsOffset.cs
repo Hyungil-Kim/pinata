@@ -23,19 +23,19 @@ public class setItemsOffset : MonoBehaviour
         {
             if (rightOffset)
             {
-                splinePositioner.motion.offset = new Vector2(5.5f, splinePositioner.motion.offset.y);
+                splinePositioner.motion.offset = new Vector2(3.5f, splinePositioner.motion.offset.y);
             }
             else if (rightMidOffset)
             {
-                splinePositioner.motion.offset = new Vector2(3f, splinePositioner.motion.offset.y);
+                splinePositioner.motion.offset = new Vector2(2f, splinePositioner.motion.offset.y);
             }
             else if (midOffset)
             {
-                splinePositioner.motion.offset = new Vector2(1f, splinePositioner.motion.offset.y);
+                splinePositioner.motion.offset = new Vector2(0f, splinePositioner.motion.offset.y);
             }
             else if (leftMidOffset)
             {
-                splinePositioner.motion.offset = new Vector2(-1f, splinePositioner.motion.offset.y);
+                splinePositioner.motion.offset = new Vector2(-2f, splinePositioner.motion.offset.y);
             }
             else if (leftOffset)
             {

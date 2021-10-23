@@ -41,14 +41,19 @@ public class NewCamera : MonoBehaviour
 				}
 				else
 				{
-					zoomOutCamera();
+					
 					if (transform.position.y > 9.5f)
 					{
 						time += Time.deltaTime;
-						if (time > 2f)
+						if (time > 5f)
 						{
 							changeState();
+							followCamera();
 						}
+					}
+					else
+					{
+						zoomOutCamera();
 					}
 				}
 				if (follower.motion.rotationOffset.y >= 180 && !finish)
