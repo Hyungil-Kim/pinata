@@ -30,6 +30,8 @@ public class Player : MonoBehaviour
 	private float life = 2;
 	private bool idle;
 	public float limitScore = 500;
+	private bool playingParticle;
+	private float particleTime;
 	// Start is called before the first frame update
 	private void Awake()
 	{
@@ -59,7 +61,11 @@ public class Player : MonoBehaviour
 		particleScale = new Vector3(transform.localScale.x * 0.4f, transform.localScale.y * 0.4f, transform.localScale.z * 0.4f);
 		hitparticle.transform.localScale = particleScale;
 		hurtparticle.transform.localScale = particleScale;
-		
+		particleTime += Time.deltaTime;
+		if(particleTime > 0.4f )
+		{
+			playingParticle = true;
+		}
 		if (player.followSpeed > 0)
 		{
 			if (!audioSource.isPlaying)
@@ -217,7 +223,12 @@ public class Player : MonoBehaviour
 			var force = collision.gameObject.transform.position - transform.position;
 			force.Normalize();
 			force.y += lift;
-			lastparticle.Play();
+			if (playingParticle)
+			{
+				lastparticle.Play();
+				playingParticle = false;
+				particleTime = 0;
+			}
 			audioSource.PlayOneShot(attackSound);
 			collision.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 			collision.rigidbody.AddForce(force * power);
