@@ -47,8 +47,8 @@ public class GameManager : MonoBehaviour
 				case State.Start:
 					follower.followSpeed = saveSpeed;
 					UiController.showGoal.gameObject.SetActive(true);
-					UiController.restart.gameObject.SetActive(true);
-					UiController.option.gameObject.SetActive(true);
+					//UiController.restart.gameObject.SetActive(true);
+					//UiController.option.gameObject.SetActive(true);
 					break;
 				case State.Turn:
 					break;

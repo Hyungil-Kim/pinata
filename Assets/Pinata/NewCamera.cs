@@ -45,7 +45,7 @@ public class NewCamera : MonoBehaviour
 					if (transform.position.y > 9.5f)
 					{
 						time += Time.deltaTime;
-						if (time > 5f)
+						if (time > 2f)
 						{
 							changeState();
 							followCamera();
@@ -76,6 +76,9 @@ public class NewCamera : MonoBehaviour
 		var cameraPos = target.position + target.right * 10;
 		cameraPos.y += 10;
 		transform.position = Vector3.Lerp(transform.position, cameraPos, Time.deltaTime * speed);
+		//var curpos = transform.rotation;
+		//var latpos =  Quaternion.LookRotation(target.position - transform.position);
+		//transform.rotation = Quaternion.Slerp(curpos, latpos, Time.deltaTime*10);
 		transform.LookAt(target);
 	}
 	private void followCamera()
@@ -84,6 +87,9 @@ public class NewCamera : MonoBehaviour
 		var cameraPos = target.position - target.forward * 15;
 		cameraPos.y += 10;
 		transform.position = Vector3.Lerp(transform.position, cameraPos, Time.deltaTime * speed);
+		//var curpos = transform.rotation;
+		//var latpos = Quaternion.LookRotation(extraPos - transform.position);
+		//transform.rotation = Quaternion.Slerp(curpos, latpos, Time.deltaTime*10);
 		transform.LookAt(extraPos);
 
 	}

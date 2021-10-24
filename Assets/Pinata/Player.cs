@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
 	private double score;
 	private GameManager gameManager;
 	private UIManager ui;
-	public float lift = 1f;
+	public float lift;
 	public float power = 10f;
 	private Dreamteck.Splines.SplineFollower player;
 	private Dreamteck.Splines.SplineComputer splineComputer;
@@ -19,7 +19,14 @@ public class Player : MonoBehaviour
 	public bool gameStart;
 	private float offsety;
 	private float time;
-	private float stoptime = 0f;
+	public ParticleSystem hitparticle;
+	public ParticleSystem hurtparticle;
+	public ParticleSystem lastparticle;
+	private AudioSource audioSource;
+	public AudioClip itemSound;
+	public AudioClip hurtSound;
+	public AudioClip attackSound;
+	private Vector3 particleScale;
 	private float life = 2;
 	private bool idle;
 	public float limitScore = 500;
@@ -31,6 +38,7 @@ public class Player : MonoBehaviour
 		gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
 		player.spline = splineComputer;
 		animator = GetComponentInChildren<Animator>();
+		audioSource = GetComponent<AudioSource>();
 	}
 	void Start()
 	{
@@ -48,6 +56,17 @@ public class Player : MonoBehaviour
 		{
 			scoreMove = 1 - (score / 10000);
 		}
+		particleScale = new Vector3(transform.localScale.x * 0.4f, transform.localScale.y * 0.4f, transform.localScale.z * 0.4f);
+		hitparticle.transform.localScale = particleScale;
+		hurtparticle.transform.localScale = particleScale;
+		
+		if (player.followSpeed > 0)
+		{
+			if (!audioSource.isPlaying)
+			{
+				//발소리 이슈
+			}
+		}
 	}
 	// Update is called once per frame
 	void FixedUpdate()
@@ -61,7 +80,7 @@ public class Player : MonoBehaviour
 				if (gameStart)
 				{
 					time += Time.deltaTime;
-					offsety = Mathf.Lerp(5f, -2f, time / 2f);
+					offsety = Mathf.Lerp(1f, -2f, time / 2f);//높이 
 					player.motion.offset = new Vector2(0, offsety);
 				}
 				if (offsety == -2f)
@@ -108,38 +127,38 @@ public class Player : MonoBehaviour
 
 				break;
 			case GameManager.State.End:
-					if (player.GetPercent() < scoreMove)
+				if (player.GetPercent() < scoreMove)
+				{
+					player.followSpeed = 0;
+					//날라가기?
+				}
+				if (Input.touchCount > 0)
+				{
+					touch = Input.GetTouch(0);
+					if (touch.phase == TouchPhase.Moved)
 					{
-						player.followSpeed = 0;
-						//날라가기?
-					}
-					if (Input.touchCount > 0)
-					{
-						touch = Input.GetTouch(0);
-						if (touch.phase == TouchPhase.Moved)
+						var inputOffset = player.motion.offset.x - touch.deltaPosition.x * 0.05f;
+						if (inputOffset >= 5.5f)
 						{
-							var inputOffset = player.motion.offset.x - touch.deltaPosition.x * 0.05f;
-							if (inputOffset >= 5.5f)
-							{
-								inputOffset = 5.5f;
-							}
-							if (inputOffset <= -3.5f)
-							{
-								inputOffset = -3.5f;
-							}
-							player.motion.offset = new Vector2(inputOffset, player.motion.offset.y);
+							inputOffset = 5.5f;
 						}
-					}
-					if(player.followSpeed <= 5 && !idle)
-					{
-						player.GetComponentInChildren<Animator>().SetTrigger("runToidle");
-						foreach(var enemy in gameManager.enemys)
+						if (inputOffset <= -3.5f)
 						{
-							enemy.GetComponent<Animator>().SetTrigger("idleTodance");
+							inputOffset = -3.5f;
 						}
-						idle = true;
+						player.motion.offset = new Vector2(inputOffset, player.motion.offset.y);
 					}
-				
+				}
+				if (player.followSpeed <= 5 && !idle)
+				{
+					player.GetComponentInChildren<Animator>().SetTrigger("runToidle");
+					foreach (var enemy in gameManager.enemys)
+					{
+						enemy.GetComponent<Animator>().SetTrigger("idleTodance");
+					}
+					idle = true;
+				}
+
 				break;
 			case GameManager.State.Finish:
 				{
@@ -152,8 +171,11 @@ public class Player : MonoBehaviour
 	{
 		if (collision.transform.tag == "Obstacle")
 		{
-			if (gameManager.score < limitScore)
+			if (score < limitScore)
 			{
+				hurtparticle.transform.position = collision.transform.position;
+				hurtparticle.Play();
+				audioSource.PlayOneShot(hurtSound);
 				var colscore = collision.transform.GetComponent<Obstacle>().score;
 				if (score >= colscore)
 				{
@@ -176,6 +198,8 @@ public class Player : MonoBehaviour
 			var colscore = collision.transform.GetComponent<Item>().score;
 			score += colscore;
 			transform.localScale += new Vector3(0.05f, 0.05f, 0.05f);
+			hitparticle.Play();
+			audioSource.PlayOneShot(itemSound);
 			Destroy(collision.gameObject);
 			Debug.Log(transform.localScale);
 			Debug.Log(score);
@@ -193,6 +217,9 @@ public class Player : MonoBehaviour
 			var force = collision.gameObject.transform.position - transform.position;
 			force.Normalize();
 			force.y += lift;
+			lastparticle.Play();
+			audioSource.PlayOneShot(attackSound);
+			collision.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 			collision.rigidbody.AddForce(force * power);
 			//날라가기
 
