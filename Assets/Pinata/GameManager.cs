@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     public Text levelText;
     public bool gameStart;
     public double percentScore;
+    
     public State CurrentState
 	{
 		get { return state; }
@@ -58,6 +59,7 @@ public class GameManager : MonoBehaviour
 					follower.SetPercent(1d);
 					break;
 				case State.Finish:
+                    
                     percentScore = score / totalScore;
 					break;
 			}

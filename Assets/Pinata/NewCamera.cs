@@ -32,6 +32,7 @@ public class NewCamera : MonoBehaviour
 				break;
 			case GameManager.State.Start:
 				saveSpeed = follower.followSpeed;
+
 				followCamera();
 				break;
 			case GameManager.State.Turn:
@@ -81,8 +82,10 @@ public class NewCamera : MonoBehaviour
 		//transform.rotation = Quaternion.Slerp(curpos, latpos, Time.deltaTime*10);
 		transform.LookAt(target);
 	}
+
 	private void followCamera()
 	{
+
 		var extraPos = new Vector3(target.position.x,target.position.y + 9,target.position.z);
 		var cameraPos = target.position - target.forward * 15;
 		cameraPos.y += 10;
@@ -91,6 +94,7 @@ public class NewCamera : MonoBehaviour
 		//var latpos = Quaternion.LookRotation(extraPos - transform.position);
 		//transform.rotation = Quaternion.Slerp(curpos, latpos, Time.deltaTime*10);
 		transform.LookAt(extraPos);
+		
 
 	}
 	private void zoomInCaremra()

@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {
 	private Touch touch;
 
-	private double score;
+	public double score;
 	private GameManager gameManager;
 	private UIManager ui;
 	public float lift;
@@ -26,12 +26,15 @@ public class Player : MonoBehaviour
 	public AudioClip itemSound;
 	public AudioClip hurtSound;
 	public AudioClip attackSound;
+	public AudioClip endSound;
 	private Vector3 particleScale;
 	private float life = 2;
 	private bool idle;
 	public float limitScore = 500;
 	private bool playingParticle;
 	private float particleTime;
+	private bool goalSound;
+	private Rigidbody pRigidbody;
 	// Start is called before the first frame update
 	private void Awake()
 	{
@@ -41,6 +44,7 @@ public class Player : MonoBehaviour
 		player.spline = splineComputer;
 		animator = GetComponentInChildren<Animator>();
 		audioSource = GetComponent<AudioSource>();
+		pRigidbody = GetComponent<Rigidbody>();
 	}
 	void Start()
 	{
@@ -62,7 +66,7 @@ public class Player : MonoBehaviour
 		hitparticle.transform.localScale = particleScale;
 		hurtparticle.transform.localScale = particleScale;
 		particleTime += Time.deltaTime;
-		if(particleTime > 0.4f )
+		if (particleTime > 0.4f)
 		{
 			playingParticle = true;
 		}
@@ -168,6 +172,11 @@ public class Player : MonoBehaviour
 				break;
 			case GameManager.State.Finish:
 				{
+					if (!goalSound)
+					{
+						audioSource.PlayOneShot(endSound);
+						goalSound = true;
+					}
 				}
 				break;
 		}
@@ -183,19 +192,26 @@ public class Player : MonoBehaviour
 				hurtparticle.Play();
 				audioSource.PlayOneShot(hurtSound);
 				var colscore = collision.transform.GetComponent<Obstacle>().score;
-				if (score >= colscore)
+				if(colscore - score <= 0)
 				{
-					score -= colscore;
-					transform.localScale -= new Vector3(0.05f, 0.05f, 0.05f);
-					if (gameManager.score == 0)
-					{
-						life--;
-					}
-					if (life == 0)
-					{
-						//날라가기
-					}
+					score = 0;
 				}
+				else
+				{
+				score -= colscore;
+				}
+				transform.localScale -= new Vector3(0.05f, 0.05f, 0.05f);
+				// 최소크기 최대크기 작성하기
+				if (gameManager.score <= 0)
+				{
+					life--;
+					Debug.Log($"life = { life }");
+				}
+				if (life == 0)
+				{
+					playerForce(collision);
+				}
+
 				Debug.Log(score);
 			}
 		}
@@ -220,25 +236,44 @@ public class Player : MonoBehaviour
 		}
 		if (collision.transform.tag == "Enemy")
 		{
-			var force = collision.gameObject.transform.position - transform.position;
-			force.Normalize();
-			force.y += lift;
-			if (playingParticle)
+			if (score < limitScore)
 			{
-				lastparticle.Play();
-				playingParticle = false;
-				particleTime = 0;
+				var force = collision.gameObject.transform.position - transform.position;
+				force.Normalize();
+				force.y += lift;
+				if (playingParticle)
+				{
+					lastparticle.Play();
+					playingParticle = false;
+					particleTime = 0;
+				}
+				audioSource.PlayOneShot(attackSound);
+				collision.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+				collision.rigidbody.AddForce(force * power);
 			}
-			audioSource.PlayOneShot(attackSound);
-			collision.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-			collision.rigidbody.AddForce(force * power);
-			//날라가기
-
+			else
+			{
+				//날라가기
+				playerForce(collision);
+			}
 		}
 	}
 	//날라기기 함수
-	private void playerForce()
+	private void playerForce(Collision collision)
 	{
-		;
+
+		var force = transform.position - collision.gameObject.transform.position;
+		force.Normalize();
+		force.y += lift;
+		//if (playingParticle)
+		//{
+		//	lastparticle.Play();
+		//	playingParticle = false;
+		//	particleTime = 0;
+		//}
+		//audioSource.PlayOneShot(attackSound);
+		pRigidbody.constraints = RigidbodyConstraints.None;
+		player.enabled = false;
+		pRigidbody.AddForce(force * power);
 	}
 }
