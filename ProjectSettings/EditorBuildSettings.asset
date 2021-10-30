@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Pinata/Stage1.unity
-    guid: 2bfd77463f872c342bbd540c7883c859
+    path: Assets/Scenes/Stage1.unity
+    guid: f65f4106a6633ab47bf0a26357e32565
   m_configObjects: {}

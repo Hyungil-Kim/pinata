@@ -6,36 +6,44 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
 	private Touch touch;
-
-	public double score;
 	private GameManager gameManager;
 	private UIManager ui;
-	public float lift;
-	public float power = 10f;
 	private Dreamteck.Splines.SplineFollower player;
 	private Dreamteck.Splines.SplineComputer splineComputer;
-	private double scoreMove = 0f;
-	private Animator animator;
-	public bool gameStart;
-	private float offsety;
-	private float time;
+	private Rigidbody pRigidbody;
 	public ParticleSystem hitparticle;
 	public ParticleSystem hurtparticle;
 	public ParticleSystem lastparticle;
 	private AudioSource audioSource;
+	private Animator animator;
 	public AudioClip itemSound;
 	public AudioClip hurtSound;
 	public AudioClip attackSound;
 	public AudioClip endWinSound;
 	public AudioClip endLoseSound;
 	private Vector3 particleScale;
+	public GameObject mapobj;
+
+	public double score;
+	public int gold;
+	public float lift;
+	public float power;
+	public float deadPower;
+	private double scoreMove = 0f;
+	public bool gameStart;
+	private float offsety;
+	private float time;
+	private float endingtime; 
 	private float life = 2;
 	private bool idle;
 	public float limitScore = 500;
 	private bool playingParticle;
 	private float particleTime;
 	private bool goalSound;
-	private Rigidbody pRigidbody;
+	private Vector3 curScale;
+	private float scaleTime;
+	private bool startScaleTime;
+	private float timeTimer;
 	// Start is called before the first frame update
 	private void Awake()
 	{
@@ -78,6 +86,24 @@ public class Player : MonoBehaviour
 				//발소리 이슈
 			}
 		}
+		if (startScaleTime)
+		{
+			timeTimer += Time.deltaTime;
+			scaleTime += Time.deltaTime;
+			var twice = curScale * 2;
+			if (curScale != twice)
+			{
+				if (timeTimer > 0.3f)
+				{
+					transform.localScale = Vector3.Lerp(curScale, twice, scaleTime / 1f);
+					timeTimer = 0;
+				}
+			}
+			if(scaleTime > 1f)
+			{
+				startScaleTime = false;
+			}
+		}
 	}
 	// Update is called once per frame
 	void FixedUpdate()
@@ -91,7 +117,7 @@ public class Player : MonoBehaviour
 				if (gameStart)
 				{
 					time += Time.deltaTime;
-					offsety = Mathf.Lerp(1f, -2f, time / 2f);//높이 
+					offsety = Mathf.Lerp(1f, -2f, time /0.5f);//높이 
 					player.motion.offset = new Vector2(0, offsety);
 				}
 				if (offsety == -2f)
@@ -125,16 +151,16 @@ public class Player : MonoBehaviour
 
 				break;
 			case GameManager.State.Turn:
-
-				player.followSpeed = 0;
-				if (player.motion.rotationOffset.y >= 180)
 				{
+					player.followSpeed = 0;
+					if (player.motion.rotationOffset.y >= 180)
+					{
+					}
+					else
+					{
+						player.motion.rotationOffset += new Vector3(0, 1f, 0);
+					}
 				}
-				else
-				{
-					player.motion.rotationOffset += new Vector3(0, 1f, 0);
-				}
-
 				break;
 			case GameManager.State.End:
 				if (player.GetPercent() < scoreMove)
@@ -164,12 +190,18 @@ public class Player : MonoBehaviour
 					player.GetComponentInChildren<Animator>().SetTrigger("runToidle");
 					foreach (var enemy in gameManager.enemys)
 					{
-						enemy.GetComponent<Animator>().SetTrigger("idleTodance");
+						enemy.GetComponent<Animator>().SetTrigger("runTodance");//변경 회전해야할수도
 					}
 					idle = true;
-					gameManager.setStateFinish();
 				}
-
+				if (player.followSpeed <= 5)
+				{
+					endingtime += Time.deltaTime;
+					if (endingtime > 5f)
+					{
+						gameManager.setStateFinish();
+					}
+				}
 				break;
 			case GameManager.State.Finish:
 				{
@@ -209,7 +241,7 @@ public class Player : MonoBehaviour
 				{
 				score -= colscore;
 				}
-				transform.localScale -= new Vector3(0.05f, 0.05f, 0.05f);
+				transform.localScale -= new Vector3(0.1f, 0.1f, 0.1f); //크기키우기
 				// 최소크기 최대크기 작성하기
 				if (score <= 0)
 				{
@@ -228,17 +260,20 @@ public class Player : MonoBehaviour
 		{
 			var colscore = collision.transform.GetComponent<Item>().score;
 			score += colscore;
-			transform.localScale += new Vector3(0.05f, 0.05f, 0.05f);
+			transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
+			curScale = transform.localScale;
 			hitparticle.Play();
 			audioSource.PlayOneShot(itemSound);
+			gold += 1;
 			Destroy(collision.gameObject);
 			Debug.Log(transform.localScale);
 			Debug.Log(score);
 		}
 		if (collision.transform.tag == "ChangeItem")
 		{
-			
+			startScaleTime = true;
 			Destroy(collision.gameObject);
+			mapobj.SetActive(false);
 			gameManager.setStateTurn();
 			gameManager.setEnemyOn();
 
@@ -248,6 +283,7 @@ public class Player : MonoBehaviour
 		{
 			if (score > limitScore)
 			{
+				collision.gameObject.GetComponent<Animator>().enabled = false;
 				var force = collision.gameObject.transform.position - transform.position;
 				force.Normalize();
 				force.y += lift;
@@ -267,11 +303,14 @@ public class Player : MonoBehaviour
 				playerForce(collision);
 			}
 		}
+		
 	}
 	//날라기기 함수
 	private void playerForce(Collision collision)
 	{
 		gameManager.setStatedead();
+		player.enabled = false;
+		pRigidbody.constraints = RigidbodyConstraints.None;
 		var force = transform.position - collision.gameObject.transform.position;
 		force.Normalize();
 		force.y += lift;
@@ -282,9 +321,8 @@ public class Player : MonoBehaviour
 		//	particleTime = 0;
 		//}
 		//audioSource.PlayOneShot(attackSound);
-		pRigidbody.constraints = RigidbodyConstraints.None;
-		player.enabled = false;
 		gameObject.layer = 9;
-		pRigidbody.AddForce(force * power);
+		pRigidbody.AddForce(force * deadPower);
 	}
+
 }

@@ -12,6 +12,7 @@ TagManager:
   - Spline
   - Road
   - UIController
+  - Gold
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,7 @@ TagManager:
   - enemy
   - player
   - obstacle
-  - 
+  - rendertexture
   - 
   - 
   - 

@@ -6,18 +6,25 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public GameManager gameManager;
+	public OptionManager optionManager;
+	public GameObject startScene;
+	public GameObject ingameScene;
+	public GameObject gameOverScene;
+	public GameObject optionPanel;
+	public GameObject endScene;
+	public GameObject animationCamera;
+
     public Button playButton;
     public Text levelText;
     public Slider showGoal;
+	public Slider tutorial;
 	public Button restart;
 	public Button optionButton;
-	public Button endButton;
-	public Text endScore;
-	public Text endGrade;
-	public GameObject optionPanel;
-	public GameObject endManager;
-    private GameManager gameManager;
-	public OptionManager optionManager;
+	public Button shopButton;
+	public Button adButton;
+	public Text gold;
+	public Text cake;
     public int stageLevel = 1;
     public bool gameStart;
 	public bool pause;
@@ -30,7 +37,7 @@ public class UIManager : MonoBehaviour
 	}
 	void Start()
     {
-       levelText.text = $"Stage {stageLevel}";
+       levelText.text = $"STAGE {stageLevel}";
     }
 
     // Update is called once per frame
@@ -39,6 +46,7 @@ public class UIManager : MonoBehaviour
 		switch (gameManager.CurrentState)
 		{
 			case GameManager.State.Intro:
+
 				break;
 			case GameManager.State.Start:
 
@@ -49,44 +57,11 @@ public class UIManager : MonoBehaviour
 				break;
 			case GameManager.State.Finish:
 				time += Time.deltaTime;
-				if (time > 5f)
+				if (time > 4f && endScene.activeSelf == false)
 				{
-					endManager.SetActive(true);
-				}
-				endScore.text = $"You Earned {gameManager.score}";
-				if (gameManager.score != 0)
-				{
-					if (gameManager.percentScore == 1)
-					{
-						endGrade.text = "PerPect";
-					}
-					else if (gameManager.percentScore >= 0.7)
-					{
-						endGrade.text = "Awesome";
-					}
-					else if (gameManager.percentScore >= 0.4)
-					{
-						endGrade.text = "Good";
-					}
-					else
-					{
-						endGrade.text = "Poor";
-					}
-
-					if(gameManager.percentScore >= 0.4)
-					{
-						endButton.GetComponentInChildren<Text>().text = "Next Stage";
-					}
-					else
-					{
-						endButton.GetComponentInChildren<Text>().text = "Retry";
-					}
-				}
-				else
-				{
-					endGrade.text = "Poor";
-					endButton.GetComponentInChildren<Text>().text = "Retry";
-
+					ingameScene.SetActive(false);
+					optionButton.gameObject.SetActive(false);
+					endScene.SetActive(true);
 				}
 				break;
 		}
@@ -102,8 +77,7 @@ public class UIManager : MonoBehaviour
 	public void setTriggerTrue()
     {
 		gameStart = true;
-		playButton.gameObject.SetActive(false);
-		levelText.gameObject.SetActive(false);
+		startScene.SetActive(false);
 		levelText.text = $"Stage {stageLevel}";
 	}
 	public void OnclickRestart()
@@ -119,23 +93,12 @@ public class UIManager : MonoBehaviour
 		}
 
 	}
-	public void OnclickEndButton()
+	public void OnclickAdButton()
 	{
-		if (gameManager.score != 0)
-		{
-	     	if (gameManager.percentScore >= 0.4)
-			{
-				//nextstage
-			}
-			else
-			{
-				SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-			}
-		}
-		else
-		{
-			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-		}
+		//광고시청
 	}
-
+	public void OnclickShopButton()
+	{
+		//shop이동
+	}
 }

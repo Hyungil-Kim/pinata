@@ -10,12 +10,11 @@ public class OptionManager : MonoBehaviour
 	public GameObject optionPanel;
 	public AudioMixer audioMixer;
 
-	public Button background;
+
 	public Slider backSlider;
 	public Button backSoundUp;
 	public Button backSoundDown;
 
-	public Button effect;
 	public Slider effectSlider;
 	public Button effectSoundUp;
 	public Button effectSoundDown;
