@@ -84,8 +84,8 @@ public class NewCamera : MonoBehaviour
 				}
 				break;
 			case GameManager.State.End:
-				backCamera();
-				//followCamera();
+				//backCamera();
+				followCamera();
 				break;
 			case GameManager.State.Finish:
 				//¿£µù¾À ¿¬Ãâ
