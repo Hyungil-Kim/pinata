@@ -23,6 +23,11 @@ public class Player : MonoBehaviour
 	public AudioClip endLoseSound;
 	private Vector3 particleScale;
 	public GameObject mapobj;
+	public GameObject rope;
+	[SerializeField]
+	private float minMove;
+	[SerializeField]
+	private float maxMove;
 
 	public double score;
 	public int gold;
@@ -44,6 +49,7 @@ public class Player : MonoBehaviour
 	private float scaleTime;
 	private bool startScaleTime;
 	private float timeTimer;
+	private bool start;
 	// Start is called before the first frame update
 	private void Awake()
 	{
@@ -117,10 +123,15 @@ public class Player : MonoBehaviour
 				if (gameStart)
 				{
 					time += Time.deltaTime;
-					offsety = Mathf.Lerp(1f, -2f, time /0.5f);//높이 
+					offsety = Mathf.Lerp(1f, -2f, time / 0.5f);//높이 
 					player.motion.offset = new Vector2(0, offsety);
+					if (!start)
+					{
+						Destroy(rope);
+						start = true;
+					}
 				}
-				if (offsety == -2f)
+					if (offsety == -2f)
 				{
 					animator.speed = 1;
 				}
@@ -137,13 +148,13 @@ public class Player : MonoBehaviour
 					if (touch.phase == TouchPhase.Moved)
 					{
 						var inputOffset = player.motion.offset.x + touch.deltaPosition.x * 0.05f;
-						if (inputOffset >= 5.5f)
+						if (inputOffset >= maxMove)
 						{
-							inputOffset = 5.5f;
+							inputOffset = maxMove;
 						}
-						if (inputOffset <= -3.5f)
+						if (inputOffset <= minMove)
 						{
-							inputOffset = -3.5f;
+							inputOffset = minMove;
 						}
 						player.motion.offset = new Vector2(inputOffset, player.motion.offset.y);
 					}
@@ -174,13 +185,13 @@ public class Player : MonoBehaviour
 					if (touch.phase == TouchPhase.Moved)
 					{
 						var inputOffset = player.motion.offset.x - touch.deltaPosition.x * 0.05f;
-						if (inputOffset >= 5.5f)
+						if (inputOffset >= maxMove)
 						{
-							inputOffset = 5.5f;
+							inputOffset = maxMove;
 						}
-						if (inputOffset <= -3.5f)
+						if (inputOffset <= minMove)
 						{
-							inputOffset = -3.5f;
+							inputOffset = minMove;
 						}
 						player.motion.offset = new Vector2(inputOffset, player.motion.offset.y);
 					}

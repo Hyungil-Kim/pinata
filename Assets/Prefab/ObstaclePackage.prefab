@@ -50,6 +50,11 @@ MonoBehaviour:
   midOffset: 0
   leftMidOffset: 0
   leftOffset: 1
+  right: 3.5
+  rightMid: 2
+  mid: 0
+  leftMid: -2
+  left: -3.5
 --- !u!1001 &8673080204794451078
 PrefabInstance:
   m_ObjectHideFlags: 0
