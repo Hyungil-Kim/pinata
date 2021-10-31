@@ -123,7 +123,7 @@ public class Player : MonoBehaviour
 				if (gameStart)
 				{
 					time += Time.deltaTime;
-					offsety = Mathf.Lerp(1f, -2f, time / 0.5f);//높이 
+					offsety = Mathf.Lerp(6f, 4f, time / 0.5f);//높이 
 					player.motion.offset = new Vector2(0, offsety);
 					if (!start)
 					{
@@ -131,7 +131,7 @@ public class Player : MonoBehaviour
 						start = true;
 					}
 				}
-					if (offsety == -2f)
+					if (offsety == 4f)
 				{
 					animator.speed = 1;
 				}
