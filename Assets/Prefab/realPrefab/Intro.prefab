@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2005838071262731592}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Rope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -328,8 +328,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 472506, guid: fd3721692161d49aab99551679a75895, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 472506, guid: fd3721692161d49aab99551679a75895, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.58
+      value: -3.25
       objectReference: {fileID: 0}
     - target: {fileID: 472506, guid: fd3721692161d49aab99551679a75895, type: 3}
       propertyPath: m_LocalPosition.y
@@ -337,7 +341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 472506, guid: fd3721692161d49aab99551679a75895, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.71
+      value: -5.96
       objectReference: {fileID: 0}
     - target: {fileID: 472506, guid: fd3721692161d49aab99551679a75895, type: 3}
       propertyPath: m_LocalRotation.w
