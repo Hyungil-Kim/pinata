@@ -30,7 +30,7 @@ public class EndUiScript : MonoBehaviour
 	private void OnEnable()
 	{
 		uIManager.animationCamera.SetActive(true);
-		endScore.text = $"YOU GET {uIManager.gameManager.score}";
+		endScore.text = $"YOU GET {uIManager.gameManager.earnGold}";
 		if (uIManager.gameManager.percentScore >= 0.8)
 		{
 			awesome.SetActive(true);

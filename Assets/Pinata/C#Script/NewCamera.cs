@@ -45,28 +45,25 @@ public class NewCamera : MonoBehaviour
 				break;
 			case GameManager.State.Turn:
 				lateTime += Time.deltaTime;
-				followCamera();
-				//if (!finish)//전환중
-				//{
-				//	if (lateTime > 1f)
-				//	{
-				//		topCamera();
+				
+				if (!finish)//전환중
+				{
+					if (lateTime > 1f)
+					{
+						followCamera();
 
-				//	}
-				//	//zoomInCaremra();
-				//}
-				//else
-				//{
-
-				if (transform.position.y > 9.5f)
+					}
+			
+				}
+				else
 				{
 
+					if (transform.position.y > 9.5f)
 					time += Time.deltaTime;
 					if (time > 2f)
 					{
-						gameManager.setStateEnd();
-						//followCamera();
-						backCamera();
+						followCamera();
+						//backCamera();
 					}
 				}
 				//	else
@@ -79,11 +76,11 @@ public class NewCamera : MonoBehaviour
 					if (!anistart)
 					{
 						gameManager.player.GetComponentInChildren<Animator>().SetTrigger("walkTocast");
-						//gameManager.setStateEnd();
+						gameManager.setStateEnd();
 						anistart = true;
 					}
 					finish = true;
-					//endingCamera();
+					endingCamera();
 				}
 				break;
 			case GameManager.State.End:
@@ -129,9 +126,9 @@ public class NewCamera : MonoBehaviour
 	{
 		
 		var extraPos = new Vector3(target.position.x,target.position.y +3,target.position.z);
-		var cameraPos = target.position - target.forward * 15 + target.up *17;
-		var cameraPos2 = target.position - target.forward * 40 + target.up *47;
-		transform.position = Vector3.Lerp(cameraPos, cameraPos2, transform.localScale.x/6);
+		var cameraPos = target.position - target.forward * 15* target.localScale.x/2 + target.up *17*target.localScale.x/2;
+		//var cameraPos2 = target.position - target.forward * 40 + target.up *47;
+		transform.position = cameraPos;
 		//var curpos = transform.rotation;
 		//var latpos = Quaternion.LookRotation(extraPos - transform.position);
 		//transform.rotation = Quaternion.Slerp(curpos, latpos, Time.deltaTime*10);
