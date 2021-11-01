@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoBehaviour
@@ -15,26 +16,47 @@ public class GameManager : MonoBehaviour
 		Finish,
 		dead
 	}
+	[HideInInspector]
 	public GameObject player;
+	[HideInInspector]
 	public GameObject[] obstacles;
+	[HideInInspector]
 	public GameObject[] enemys;
+	[HideInInspector]
 	public GameObject[] items;
+	[HideInInspector]
 	public GameObject camera2;
+	[HideInInspector]
 	public GameObject enemyParent;
+	[HideInInspector]
 	public Dreamteck.Splines.Spline spline;
+	[HideInInspector]
 	public double score;
+	[HideInInspector]
 	public Dreamteck.Splines.SplineFollower follower;
+	[HideInInspector]
 	private State state;
+	[HideInInspector]
 	private float saveSpeed;
+	[HideInInspector]
 	public double totalScore = 0f;
+	[HideInInspector]
+	private Scene scene;
+	[HideInInspector]
+	public int stageLevel;
 
 	public UIManager UiController;
-	public int stageLevel;
+	[HideInInspector]
 	public Button playButton;
+	[HideInInspector]
 	public Text levelText;
+	[HideInInspector]
 	public bool gameStart;
+	[HideInInspector]
 	public double percentScore;
-	public int gold;
+	[HideInInspector]
+	public int savegold;
+	[HideInInspector]
 	public int earnGold;
 	public State CurrentState
 	{
@@ -62,6 +84,7 @@ public class GameManager : MonoBehaviour
 					break;
 				case State.Finish:
 					percentScore = score / totalScore;
+					savegold += earnGold;
 					break;
 				case State.dead:
 					follower.followSpeed = 0;
@@ -92,6 +115,7 @@ public class GameManager : MonoBehaviour
 		{
 			totalScore += item.GetComponent<Item>().score;
 		}
+		stageLevel = scene.buildIndex + 1;
 	}
 
 	// Update is called once per frame
@@ -110,8 +134,6 @@ public class GameManager : MonoBehaviour
 			case State.dead:
 				break;
 		}
-
-
 	}
 	public void setStateEnd()
 	{

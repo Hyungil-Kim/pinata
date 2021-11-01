@@ -12,6 +12,7 @@ public class NewCamera : MonoBehaviour
 	private float rottime = 0f;
 	private float lateTime = 0f;
 	private float gameOverTime = 0f;
+	
 	private Vector3 curpos;
 	private float changetime =0f;
 	public bool finish = false;

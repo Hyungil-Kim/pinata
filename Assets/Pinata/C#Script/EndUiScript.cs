@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class EndUiScript : MonoBehaviour
@@ -19,13 +20,16 @@ public class EndUiScript : MonoBehaviour
 	private bool on;
 	private float time;
 	public float changetime;
-
+	private AudioSource audioSource;
+	public AudioClip endSound;
+	private bool endbool;
+	private Scene scene;
 	// Start is called before the first frame update
 	private void Awake()
 	{
 		scaleNum = endButtonAD.GetComponent<RectTransform>().localScale;
 		changeNum = new Vector3(scaleNum.x + 0.2f, scaleNum.y + 0.2f, scaleNum.z + 0.2f);
-
+		audioSource = GetComponent<AudioSource>();
 	}
 	private void OnEnable()
 	{
@@ -48,6 +52,7 @@ public class EndUiScript : MonoBehaviour
 			poor.SetActive(true);
 		}
 		animator.SetFloat("Score", ((float)uIManager.gameManager.percentScore));
+		
 	}
 	public void Update()
 	{
@@ -74,6 +79,11 @@ public class EndUiScript : MonoBehaviour
 		{
 			time = 0f;
 		}
+		if (animator.GetCurrentAnimatorStateInfo(0).IsName("Cast Spell") && !endbool)
+		{
+			audioSource.PlayOneShot(endSound);
+			endbool = true;
+		}
 	}
 	public void OnclickAdButton()
 	{
@@ -83,7 +93,7 @@ public class EndUiScript : MonoBehaviour
 	}
 	public void OnclickNextButton()
 	{
-		//다음씬 불러오기
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
 	}
 
 }

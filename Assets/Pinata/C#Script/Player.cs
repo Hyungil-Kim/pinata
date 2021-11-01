@@ -19,8 +19,9 @@ public class Player : MonoBehaviour
 	public AudioClip itemSound;
 	public AudioClip hurtSound;
 	public AudioClip attackSound;
-	public AudioClip endWinSound;
-	public AudioClip endLoseSound;
+	public AudioClip sigeupSound;
+	public AudioClip castSpellSound;
+
 	private Vector3 particleScale;
 	public GameObject mapobj;
 	public GameObject rope;
@@ -50,6 +51,7 @@ public class Player : MonoBehaviour
 	private bool startScaleTime;
 	private float timeTimer;
 	private bool start;
+	private bool spellsound;
 	// Start is called before the first frame update
 	private void Awake()
 	{
@@ -103,12 +105,19 @@ public class Player : MonoBehaviour
 				{
 					transform.localScale = Vector3.Lerp(curScale, twice, scaleTime / 1f);
 					timeTimer = 0;
+					audioSource.PlayOneShot(sigeupSound);
 				}
 			}
 			if(scaleTime > 1f)
 			{
 				startScaleTime = false;
 			}
+		}
+		if (animator.GetCurrentAnimatorStateInfo(0).IsName("Cast Spell") && !spellsound)
+		{
+			Debug.Log("1");
+			audioSource.PlayOneShot(castSpellSound);
+			spellsound = true;
 		}
 	}
 	// Update is called once per frame
@@ -171,6 +180,9 @@ public class Player : MonoBehaviour
 					{
 						player.motion.rotationOffset += new Vector3(0, 1f, 0);
 					}
+					
+
+
 				}
 				break;
 			case GameManager.State.End:

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class GameOver : MonoBehaviour
 {
 	public UIManager uIManager;
@@ -58,11 +58,11 @@ public class GameOver : MonoBehaviour
 	public void OnclickAdButton()
 	{
 		//광고출력
-		//다음씬 불러오기
+		OnclickNextbutton();
 	}
 	public void OnclickNextbutton()
 	{
-		//다음씬 불러오기
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
 	}
 
 }

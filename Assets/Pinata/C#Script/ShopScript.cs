@@ -20,6 +20,8 @@ public class ShopScript : MonoBehaviour
 	public SkinnedMeshRenderer playerMeshRenderer;
 	public Text gold;
 	private int randomNum;
+	private int closeLength;
+	private int mask;
 	private int num;
     //private Vector3 scaleNum;
     //private Vector3 changeNum;
@@ -29,8 +31,6 @@ public class ShopScript : MonoBehaviour
     void Awake()
     {
 
-		//scaleNum = endButtonAD.GetComponent<RectTransform>().localScale;
-		//changeNum = new Vector3(scaleNum.x + 0.2f, scaleNum.y + 0.2f, scaleNum.z + 0.2f);
 	}
 
     private void OnEnable()
@@ -48,40 +48,25 @@ public class ShopScript : MonoBehaviour
 			int index = i;
 			shopButton[index].onClick.AddListener(() => this.OnclickEvent(index));
 		}
+
+		for (int i = 0; i < shopButton.Length; i++)
+		{
+			if (shopButtonComponent[i].open)
+			{
+				mask += 1 << i;
+			}
+			else
+			{
+				closeLength++;
+			}
+		}
 	}
 
 	void Update()
     {
-		 randomNum = Random.Range(0, shopButton.Length);
-		 gold.text = gameManager.changeUnit(uIManager.gameManager.earnGold);
+		
+		 gold.text = gameManager.changeUnit(uIManager.gameManager.savegold);
 	}
-
-	//   void PopUpButton()
-	//{
-	//	time += Time.deltaTime;
-	//	if (!on)
-	//	{
-	//		endButtonAD.GetComponent<RectTransform>().localScale = Vector3.Lerp(scaleNum, changeNum, time / changetime);
-	//		if (time >= changetime)
-	//		{
-	//			time = 0f;
-	//			on = true;
-	//		}
-	//	}
-	//	else
-	//	{
-	//		endButtonAD.GetComponent<RectTransform>().localScale = Vector3.Lerp(changeNum, scaleNum, time / changetime);
-	//		if (time >= changetime)
-	//		{
-	//			time = 0f;
-	//			on = false;
-	//		}
-	//	}
-	//	if (time > changetime)
-	//	{
-	//		time = 0f;
-	//	}
-	//}
 	
 	public void OnclickEvent(int index)
 	{
@@ -97,24 +82,15 @@ public class ShopScript : MonoBehaviour
 	}
 	public void setInterectable()
 	{
-		if (gameManager.gold >= 9000)
+		if (closeLength != 0)
 		{
-			if (!shopButtonComponent[randomNum].open)
+			Debug.Log(1);
+			if (gameManager.savegold >= 9000)
 			{
-				gameManager.gold -= 9000;
-				shopButtonComponent[randomNum].open = true;
-			}
-			else
-			{
-				if(randomNum+1 < randomNum)
-				{
-					randomNum++;
-				}
-				else
-				{
-					randomNum = 1;
-				}
-			
+				gameManager.savegold -= 9000;
+				shopButtonComponent[num].open = true;
+				closeLength--;
+				mask += 1 << num;
 			}
 		}
 	}
@@ -124,8 +100,23 @@ public class ShopScript : MonoBehaviour
 	}
 	public void OnclickUnlockbutton()
 	{
-		setInterectable();
-		//ÇØÁ¦
+		
+			randomNum = Random.Range(0,closeLength);
+		int count = -1;
+		for (int i = 0; i < shopButton.Length; i++)
+		{
+			if ((mask >> i & 1) == 0)
+			{
+				count++;
+				if(count == randomNum)
+				{
+					num = i; 
+					break;
+				}
+			}
+		}
+
+			setInterectable();
 	}
 	public void OnClickBackButton()
 	{

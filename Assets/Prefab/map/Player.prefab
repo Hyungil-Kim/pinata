@@ -105,8 +105,8 @@ MonoBehaviour:
   itemSound: {fileID: 8300000, guid: acb35e321c246433188565a3095c1aae, type: 3}
   hurtSound: {fileID: 8300000, guid: a924f57a1a78a46098f381a0cee5e158, type: 3}
   attackSound: {fileID: 8300000, guid: 2eb3dadce8177471996f94d099823504, type: 3}
-  endWinSound: {fileID: 8300000, guid: ad673dae09ad048988395eb8bd490646, type: 3}
-  endLoseSound: {fileID: 8300000, guid: ef989cd6c17af409e8311aa258fe2013, type: 3}
+  sigeupSound: {fileID: 8300000, guid: c2870c7196da54159bb563f25e959e44, type: 3}
+  castSpellSound: {fileID: 8300000, guid: 7d1b3f80edc084d07a7765e32ecfa129, type: 3}
   mapobj: {fileID: 0}
   rope: {fileID: 0}
   minMove: -4.3
@@ -803,7 +803,7 @@ MonoBehaviour:
       percent: 1
     optimizedIndices: 
     sampleMode: 0
-    clipFrom: 0
+    clipFrom: 0.8292682766914368
     clipTo: 1
     loopSamples: 0
   clipFromSample:
@@ -821,7 +821,7 @@ MonoBehaviour:
     size: 1
     percent: 0.9999995231628418
   _loopSamples: 0
-  _clipFrom: 0
+  _clipFrom: 0.8292682766914368
   _clipTo: 1
   animClipFrom: 0
   animClipTo: 1
@@ -864,16 +864,16 @@ MonoBehaviour:
   targetRigidbody2D: {fileID: 0}
   targetTransform: {fileID: 8389745840305230601}
   _result:
-    position: {x: 92.99162, y: 2.770393, z: 115.79839}
+    position: {x: -92.4378, y: 1, z: 121.93438}
     up: {x: 0, y: 1, z: 0}
-    forward: {x: 0.011870753, y: -0.10139058, z: -0.9947759}
+    forward: {x: -0.9299729, y: 0, z: 0.3676281}
     color: {r: 1, g: 1, b: 1, a: 1}
     size: 1
     percent: 0
   _finalResult:
-    position: {x: 92.99162, y: 2.770393, z: 115.79839}
+    position: {x: -92.4378, y: 1, z: 121.93438}
     up: {x: 0, y: 1, z: 0}
-    forward: {x: 0.011870753, y: -0.10139058, z: -0.9947759}
+    forward: {x: -0.9299729, y: 0, z: 0.3676281}
     color: {r: 1, g: 1, b: 1, a: 1}
     size: 1
     percent: 0
@@ -904,7 +904,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -5285355009903494686, guid: 332f8580a3b4f3c4bbc3fe62ddd9ffa3, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 5a7b2143328494c4c9b301289932807b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 7d1b3f80edc084d07a7765e32ecfa129, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

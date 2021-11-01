@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour
 	public Button shopButton;
 	public Button adButton;
 	public Text cake;
-    public int stageLevel = 1;
+    private int stageLevel;
     public bool gameStart;
 	public bool pause;
 
@@ -34,6 +34,7 @@ public class UIManager : MonoBehaviour
 	private void Awake()
 	{
         gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
+		stageLevel = gameManager.stageLevel;
 	}
 	void Start()
     {
