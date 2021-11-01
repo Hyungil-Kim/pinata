@@ -793,9 +793,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  minSpeed: 10
-  maxSpeed: 20
-  curquat: {x: 0, y: 0, z: 0, w: 0}
+  minSpeed: 3
+  maxSpeed: 10
 --- !u!1 &7475045267106860155
 GameObject:
   m_ObjectHideFlags: 0

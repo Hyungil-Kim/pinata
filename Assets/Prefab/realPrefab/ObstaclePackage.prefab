@@ -62,9 +62,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7077689974296398533}
     m_Modifications:
+    - target: {fileID: 2722342759087260101, guid: b37ea372e82a6e1449051fed99efec12, type: 3}
+      propertyPath: scale
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5256621445862756684, guid: b37ea372e82a6e1449051fed99efec12, type: 3}
       propertyPath: m_Name
       value: Girl
+      objectReference: {fileID: 0}
+    - target: {fileID: 6865283467930923819, guid: b37ea372e82a6e1449051fed99efec12, type: 3}
+      propertyPath: _motion._offset.y
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 9126575990624969567, guid: b37ea372e82a6e1449051fed99efec12, type: 3}
       propertyPath: m_RootOrder
@@ -76,7 +84,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9126575990624969567, guid: b37ea372e82a6e1449051fed99efec12, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 9126575990624969567, guid: b37ea372e82a6e1449051fed99efec12, type: 3}
       propertyPath: m_LocalPosition.z
@@ -134,7 +142,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 959359204390571591, guid: f6bfed638b7eedb45a891dfed46d7f0e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 959359204390571591, guid: f6bfed638b7eedb45a891dfed46d7f0e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -168,9 +176,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3381031476920790236, guid: f6bfed638b7eedb45a891dfed46d7f0e, type: 3}
+      propertyPath: scale
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 4254509416535391316, guid: f6bfed638b7eedb45a891dfed46d7f0e, type: 3}
       propertyPath: m_Name
       value: Boy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5193575837017646272, guid: f6bfed638b7eedb45a891dfed46d7f0e, type: 3}
+      propertyPath: _motion._offset.y
+      value: 3.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6bfed638b7eedb45a891dfed46d7f0e, type: 3}

@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class EnemyLine : MonoBehaviour
 {
-    private Dreamteck.Splines.SplinePositioner splinePositioner;
-    private Dreamteck.Splines.SplineComputer splineComputer;
-
+    public double persent;
     void Start()
     {
-        splinePositioner = GetComponent<Dreamteck.Splines.SplinePositioner>();
-        splineComputer = GameObject.FindWithTag("Spline").GetComponent<Dreamteck.Splines.SplineComputer>();
-        splinePositioner.spline = splineComputer;
-
     }
     // Update is called once per frame
     void Update()

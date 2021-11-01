@@ -5,6 +5,7 @@ using UnityEngine;
 public class Obstacle : MonoBehaviour
 {
     public double score;
+    public float scale;
     private bool attack;
 
     private GameManager gameManager;
@@ -22,26 +23,26 @@ public class Obstacle : MonoBehaviour
     }
     void Update()
     {
-        if (attack)
-        {
+        //if (attack)
+        //{
             GetComponentInChildren<Animator>().SetTrigger("idleToattack");
-            attack = false;
-        }
-        else if (Vector3.Distance(gameObject.transform.position, gameManager.player.transform.position) < 10f)
-        {
-            GetComponentInChildren<Animator>().SetTrigger("idleToattack");
-        }
-        else
-        {
-            GetComponentInChildren<Animator>().SetTrigger("attackToidle");
-        }
+        //    attack = false;
+        //}
+        //else if (Vector3.Distance(gameObject.transform.position, gameManager.player.transform.position) < 10f)
+        //{
+        //    GetComponentInChildren<Animator>().SetTrigger("idleToattack");
+        //}
+        //else
+        //{
+        //    GetComponentInChildren<Animator>().SetTrigger("attackToidle");
+        //}
      
     }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.transform.tag == "Player")
-		{
-            attack = true;
-        }
-    }
+  //  private void OnCollisionEnter(Collision collision)
+  //  {
+  //      if(collision.transform.tag == "Player")
+		//{
+  //          attack = true;
+  //      }
+  //  }
 }

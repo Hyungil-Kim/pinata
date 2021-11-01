@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
 	public GameObject[] enemys;
 	public GameObject[] items;
 	public GameObject camera2;
-	public GameObject[] roads;
 	public GameObject enemyParent;
 	public Dreamteck.Splines.Spline spline;
 	public double score;
@@ -30,7 +29,7 @@ public class GameManager : MonoBehaviour
 	public double totalScore = 0f;
 
 	public UIManager UiController;
-	public int stageLevel = 1;
+	public int stageLevel;
 	public Button playButton;
 	public Text levelText;
 	public bool gameStart;
@@ -88,7 +87,6 @@ public class GameManager : MonoBehaviour
 		enemyParent = GameObject.FindWithTag("Respawn");
 		enemyParent.SetActive(false);
 		items = GameObject.FindGameObjectsWithTag("Item");
-		roads = GameObject.FindGameObjectsWithTag("Road");
 		camera2 = GameObject.FindWithTag("MainCamera");
 		foreach (var item in items)
 		{
@@ -154,9 +152,9 @@ public class GameManager : MonoBehaviour
 			if (score / 1000 >= 1)//m
 			{
 				score /= 1000;
-				return $"{ score.ToString("F2")}M";
+				return $"{ score.ToString("F1")}M";
 			}
-			return $"{ score.ToString("F2")}K";
+			return $"{ score.ToString("F1")}K";
 			
 		}
 		else

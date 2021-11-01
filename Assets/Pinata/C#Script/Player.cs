@@ -123,7 +123,7 @@ public class Player : MonoBehaviour
 				if (gameStart)
 				{
 					time += Time.deltaTime;
-					offsety = Mathf.Lerp(6f, 4f, time / 0.5f);//높이 
+					offsety = Mathf.Lerp(6f, 3.5f, time / 0.5f);//높이 
 					player.motion.offset = new Vector2(0, offsety);
 					if (!start)
 					{
@@ -131,7 +131,7 @@ public class Player : MonoBehaviour
 						start = true;
 					}
 				}
-					if (offsety == 4f)
+					if (offsety == 3.5f)
 				{
 					animator.speed = 1;
 				}
@@ -201,14 +201,14 @@ public class Player : MonoBehaviour
 					player.GetComponentInChildren<Animator>().SetTrigger("runToidle");
 					foreach (var enemy in gameManager.enemys)
 					{
-						enemy.GetComponent<Animator>().SetTrigger("runTodance");//변경 회전해야할수도
+						enemy.GetComponent<Animator>().SetTrigger("runTodance");
 					}
 					idle = true;
 				}
 				if (player.followSpeed <= 5)
 				{
 					endingtime += Time.deltaTime;
-					if (endingtime > 5f)
+					if (endingtime > 1f)
 					{
 						gameManager.setStateFinish();
 					}
@@ -220,12 +220,12 @@ public class Player : MonoBehaviour
 					{
 						if (0.5 < gameManager.percentScore)
 						{
-							audioSource.PlayOneShot(endWinSound);
+							//audioSource.PlayOneShot(endWinSound);
 							goalSound = true;
 						}
 						else
 						{
-							audioSource.PlayOneShot(endLoseSound);
+							//audioSource.PlayOneShot(endLoseSound);
 							goalSound = true;
 						}
 					}
@@ -238,12 +238,14 @@ public class Player : MonoBehaviour
 	{
 		if (collision.transform.tag == "Obstacle")
 		{
-			if (score < limitScore)
+			//if (score < limitScore)
 			{
 				hurtparticle.transform.position = collision.transform.position;
 				hurtparticle.Play();
 				audioSource.PlayOneShot(hurtSound);
+				animator.SetTrigger("runTodamage");
 				var colscore = collision.transform.GetComponent<Obstacle>().score;
+				var colscale = collision.transform.GetComponent<Obstacle>().scale;
 				if(colscore >= score)
 				{
 					colscore = 0;
@@ -252,8 +254,10 @@ public class Player : MonoBehaviour
 				{
 				score -= colscore;
 				}
-				transform.localScale -= new Vector3(0.1f, 0.1f, 0.1f); //크기키우기
-				// 최소크기 최대크기 작성하기
+				if (transform.localScale.x > 1f)
+				{
+					transform.localScale -= new Vector3(colscale, colscale, colscale);	
+				}
 				if (score <= 0)
 				{
 					life--;
@@ -292,8 +296,9 @@ public class Player : MonoBehaviour
 		}
 		if (collision.transform.tag == "Enemy")
 		{
-			if (score > limitScore)
+			//if (score > limitScore)
 			{
+				collision.gameObject.GetComponent<Dreamteck.Splines.SplineFollower>().enabled = false;
 				collision.gameObject.GetComponent<Animator>().enabled = false;
 				var force = collision.gameObject.transform.position - transform.position;
 				force.Normalize();
@@ -308,10 +313,10 @@ public class Player : MonoBehaviour
 				collision.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 				collision.rigidbody.AddForce(force * power);
 			}
-			else
+			//else
 			{
 				//날라가기
-				playerForce(collision);
+				//playerForce(collision);
 			}
 		}
 		

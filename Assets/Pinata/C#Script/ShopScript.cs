@@ -10,13 +10,15 @@ public class ShopScript : MonoBehaviour
     public UIManager uIManager;
 	public Button[] shopButton;
     public Button goldButton;
-    public Button buyButtonAD;
+	public Button buyButtonAD;
+	public Button endButton;
 	public Animator animator;
 	public Sprite selectedImage;
 	public Sprite deSelectedImage;
 	public ShopButton[] shopButtonComponent;
 	public SkinnedMeshRenderer meshRenderer;
 	public SkinnedMeshRenderer playerMeshRenderer;
+	public Text gold;
 	private int randomNum;
 	private int num;
     //private Vector3 scaleNum;
@@ -51,6 +53,7 @@ public class ShopScript : MonoBehaviour
 	void Update()
     {
 		 randomNum = Random.Range(0, shopButton.Length);
+		 gold.text = gameManager.changeUnit(uIManager.gameManager.earnGold);
 	}
 
 	//   void PopUpButton()
@@ -124,7 +127,11 @@ public class ShopScript : MonoBehaviour
 		setInterectable();
 		//«ÿ¡¶
 	}
-
+	public void OnClickBackButton()
+	{
+		gameObject.SetActive(false);
+		uIManager.startScene.SetActive(true);
+	}
 
 
 }

@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
 	public GameObject optionPanel;
 	public GameObject endScene;
 	public GameObject animationCamera;
+	public GameObject shopPanel;
 
     public Button playButton;
     public Text levelText;
@@ -23,7 +24,6 @@ public class UIManager : MonoBehaviour
 	public Button optionButton;
 	public Button shopButton;
 	public Button adButton;
-	public Text gold;
 	public Text cake;
     public int stageLevel = 1;
     public bool gameStart;
@@ -46,18 +46,18 @@ public class UIManager : MonoBehaviour
 		switch (gameManager.CurrentState)
 		{
 			case GameManager.State.Intro:
-
 				break;
 			case GameManager.State.Start:
 
 				showGoal.value = (float)gameManager.follower.GetPercent();
+				cake.text = gameManager.changeUnit(gameManager.earnGold);
 				break;
 			case GameManager.State.Turn:
 			case GameManager.State.End:
 				break;
 			case GameManager.State.Finish:
 				time += Time.deltaTime;
-				if (time > 4f && endScene.activeSelf == false)
+				if (time > 2f && endScene.activeSelf == false)
 				{
 					ingameScene.SetActive(false);
 					optionButton.gameObject.SetActive(false);
@@ -99,6 +99,7 @@ public class UIManager : MonoBehaviour
 	}
 	public void OnclickShopButton()
 	{
-		//shop¿Ãµø
+		shopPanel.SetActive(true);
+		startScene.SetActive(false);
 	}
 }

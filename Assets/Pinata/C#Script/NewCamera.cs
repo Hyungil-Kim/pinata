@@ -40,51 +40,44 @@ public class NewCamera : MonoBehaviour
 				break;
 			case GameManager.State.Start:
 				saveSpeed = follower.followSpeed;
-
 				followCamera();
 				break;
 			case GameManager.State.Turn:
-				lateTime += Time.deltaTime;
-				
 				if (!finish)//전환중
 				{
+					lateTime += Time.deltaTime;
 					if (lateTime > 1f)
 					{
-						followCamera();
 
 					}
-			
 				}
 				else
 				{
-
+					
 					if (transform.position.y > 9.5f)
-					time += Time.deltaTime;
-					if (time > 2f)
 					{
-						followCamera();
-						//backCamera();
+						time += Time.deltaTime;
+						if (time > 1f)
+						{
+							gameManager.setStateEnd();
+							
+						}
+						else
+						{
+						}
 					}
 				}
-				//	else
-				//	{
-				//		//zoomOutCamera();
-				//	}
-				//}
 				if (follower.motion.rotationOffset.y >= 180 && !finish)//완전히 전환
 				{
 					if (!anistart)
 					{
 						gameManager.player.GetComponentInChildren<Animator>().SetTrigger("walkTocast");
-						gameManager.setStateEnd();
 						anistart = true;
 					}
-					finish = true;
 					endingCamera();
 				}
 				break;
 			case GameManager.State.End:
-				//backCamera();
 				followCamera();
 				break;
 			case GameManager.State.Finish:
@@ -93,7 +86,7 @@ public class NewCamera : MonoBehaviour
 			case GameManager.State.dead:
 				deadCamera();
 				gameOverTime += Time.deltaTime;
-				if(gameOverTime >5f)
+				if(gameOverTime >3f)
 				{
 					gameManager.UiController.gameOverScene.SetActive(true);
 				}
@@ -103,21 +96,12 @@ public class NewCamera : MonoBehaviour
 	}
 	private void IntroCamera()
 	{
-		//var cameraPos = target.position + target.right * 10;
-		//cameraPos.y += 10;
-		//transform.position = Vector3.Lerp(transform.position, cameraPos, Time.deltaTime * speed);
-		////var curpos = transform.rotation;
-		////var latpos =  Quaternion.LookRotation(target.position - transform.position);
-		////transform.rotation = Quaternion.Slerp(curpos, latpos, Time.deltaTime*10);
-		//transform.LookAt(target);
 		if (gameManager.UiController.gameStart)
 		{
 			changetime += Time.deltaTime;
 			var extraPos = new Vector3(target.position.x, target.position.y + 9, target.position.z);
 			var cameraPos = target.position - target.forward * 15 + target.up * 10;
 			transform.position = Vector3.Lerp(curpos, cameraPos, changetime / 1f);
-			//var latpos = Quaternion.LookRotation(extraPos - transform.position);
-			//transform.rotation = Quaternion.Slerp(curpos, latpos, Time.deltaTime*10);
 			transform.LookAt(target);
 		}
 	}
@@ -125,32 +109,12 @@ public class NewCamera : MonoBehaviour
 	private void followCamera()
 	{
 		
-		var extraPos = new Vector3(target.position.x,target.position.y +3,target.position.z);
+		var extraPos = new Vector3(target.position.x,target.position.y +4,target.position.z);
 		var cameraPos = target.position - target.forward * 15* target.localScale.x/2 + target.up *17*target.localScale.x/2;
-		//var cameraPos2 = target.position - target.forward * 40 + target.up *47;
 		transform.position = cameraPos;
-		//var curpos = transform.rotation;
-		//var latpos = Quaternion.LookRotation(extraPos - transform.position);
-		//transform.rotation = Quaternion.Slerp(curpos, latpos, Time.deltaTime*10);
 		transform.LookAt(extraPos);
 		
 
-	}
-	private void zoomInCaremra()
-	{
-		var cameraPos = target.position - transform.forward * Mathf.Lerp(17f, 23f, 0f);
-		cameraPos.y = 10;
-		transform.position = Vector3.Lerp(transform.position, cameraPos, Time.deltaTime * speed);
-		transform.LookAt(target);
-		
-	}
-	private void zoomOutCamera()
-	{
-		var cameraPos = target.position - transform.forward * Mathf.Lerp(23f, 17f, 0f);
-		cameraPos.y = 10;
-		transform.position = Vector3.Lerp(transform.position, cameraPos, Time.deltaTime * speed);
-		transform.LookAt(target);
-		
 	}
 	private void endingCamera()
 	{
@@ -159,7 +123,7 @@ public class NewCamera : MonoBehaviour
 		cameraPos.y += 10;
 		if(rottime < 1f)
 		{
-			transform.RotateAround(target.position, cameraPos, 180f*Time.deltaTime);
+			transform.RotateAround(target.position, Vector3.up, 180f*Time.deltaTime);
 		}
 		else
 		{
@@ -171,23 +135,6 @@ public class NewCamera : MonoBehaviour
 		//var cameraPos = target.position + target.right * 10;
 		//cameraPos.y += 10;
 		//transform.position = Vector3.Lerp(transform.position, cameraPos, Time.deltaTime * speed);
-		transform.LookAt(target);
-	}
-
-	private void topCamera()
-	{
-		var extraPos = new Vector3(target.position.x - 5, target.position.y, target.position.z+3);
-		transform.position = new Vector3(target.position.x+16, target.position.y + 29, target.position.z-15);
-		transform.LookAt(extraPos);
-		//transform.position = new Vector3(transform.position.x, transform.position.y+5, transform.position.z);
-	}
-	private void backCamera()
-	{
-		if (!change)
-		{
-			transform.position = new Vector3(target.position.x +15, target.position.y+5, target.position.z);
-			change = true;
-		}
 		transform.LookAt(target);
 	}
 }
