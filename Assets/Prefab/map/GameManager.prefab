@@ -48,7 +48,6 @@ MonoBehaviour:
   enemys: []
   items: []
   camera2: {fileID: 0}
-  roads: []
   enemyParent: {fileID: 0}
   spline:
     points: []
@@ -71,11 +70,11 @@ MonoBehaviour:
   score: 0
   follower: {fileID: 0}
   totalScore: 0
-  UiController: {fileID: 0}
   stageLevel: 0
+  UiController: {fileID: 462717994060726770, guid: c16d2699139ae5c4f93605a1cc6e95c7, type: 3}
   playButton: {fileID: 0}
   levelText: {fileID: 0}
   gameStart: 0
   percentScore: 0
-  gold: 0
+  savegold: 0
   earnGold: 0

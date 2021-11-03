@@ -54,10 +54,11 @@ public class GameManager : MonoBehaviour
 	public bool gameStart;
 	[HideInInspector]
 	public double percentScore;
-	[HideInInspector]
+	
 	public int savegold;
 	[HideInInspector]
 	public int earnGold;
+	private ShopScript shopScript;
 	public State CurrentState
 	{
 		get { return state; }
@@ -67,6 +68,7 @@ public class GameManager : MonoBehaviour
 			switch (state)
 			{
 				case State.Intro:
+					
 					break;
 				case State.Start:
 					
@@ -84,7 +86,7 @@ public class GameManager : MonoBehaviour
 					break;
 				case State.Finish:
 					percentScore = score / totalScore;
-					savegold += earnGold;
+					Save();
 					break;
 				case State.dead:
 					follower.followSpeed = 0;
@@ -94,17 +96,39 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	// Start is called before the first frame update
+	public void Save()
+	{
+		SaveData.SavePlayerData(new PlayerData(this));
+	}
+
+	public void Load()
+	{
+		PlayerData data = SaveData.LoadPlayerData();
+		if (data != null)
+		{
+			stageLevel = data.currentStage;
+			savegold = data.playerGold;
+			shopScript.mask = data.mask;
+			shopScript.closeLength = data.closeLength;
+			shopScript.playerMeshRenderer.sharedMaterial.mainTexture = Resources.Load<Texture2D>(data.playerSkin);
+			shopScript.meshRenderer.sharedMaterial.mainTexture = Resources.Load<Texture2D>(data.avatarSkin);
+		}
+	}
+
 	private void Awake()
 	{
 		CurrentState = State.Intro;
 		player = GameObject.FindWithTag("Player");
 		follower = player.GetComponent<Dreamteck.Splines.SplineFollower>();
 		saveSpeed = follower.followSpeed;
-		UiController = GameObject.FindWithTag("UIController").GetComponent<UIManager>();
+		Debug.Log(UiController);
+		scene = SceneManager.GetActiveScene();
+		stageLevel = scene.buildIndex + 1;
+		shopScript = UiController.shopPanel;
 	}
 	void Start()
 	{
+		Load();
 		obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
 		enemys = GameObject.FindGameObjectsWithTag("Enemy");
 		enemyParent = GameObject.FindWithTag("Respawn");
@@ -115,7 +139,6 @@ public class GameManager : MonoBehaviour
 		{
 			totalScore += item.GetComponent<Item>().score;
 		}
-		stageLevel = scene.buildIndex + 1;
 	}
 
 	// Update is called once per frame

@@ -180,7 +180,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2977607496253295896}
-  m_LocalRotation: {x: -0, y: 0.17196392, z: -0, w: 0.9851033}
+  m_LocalRotation: {x: 0, y: 0.17196342, z: 0, w: 0.98510337}
   m_LocalPosition: {x: 0, y: -4.23, z: -2.63}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -944,23 +944,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4007593398366066719, guid: ad19f891346c5b241ac490f526cc058d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.5596185
+      value: 0.7664049
       objectReference: {fileID: 0}
     - target: {fileID: 4007593398366066719, guid: ad19f891346c5b241ac490f526cc058d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.82875043
+      value: 0.5228936
       objectReference: {fileID: 0}
     - target: {fileID: 4007593398366066719, guid: ad19f891346c5b241ac490f526cc058d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000000074505797
+      value: -0.21027702
       objectReference: {fileID: 0}
     - target: {fileID: 4007593398366066719, guid: ad19f891346c5b241ac490f526cc058d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000018160788
+      value: 0.30820334
       objectReference: {fileID: 0}
     - target: {fileID: 4007593398366066719, guid: ad19f891346c5b241ac490f526cc058d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 111.94101
+      value: 68.609
       objectReference: {fileID: 0}
     - target: {fileID: 4007593398366066719, guid: ad19f891346c5b241ac490f526cc058d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -968,7 +968,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4007593398366066719, guid: ad19f891346c5b241ac490f526cc058d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 43.814
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad19f891346c5b241ac490f526cc058d, type: 3}

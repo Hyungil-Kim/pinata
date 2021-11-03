@@ -110,11 +110,12 @@ MonoBehaviour:
   mapobj: {fileID: 0}
   rope: {fileID: 0}
   minMove: -4.3
-  maxMove: 5.3
+  maxMove: 4.3
   score: 0
   gold: 0
   lift: 1
   power: 5000
+  TrainPower: 1500
   deadPower: 700
   gameStart: 0
   limitScore: 7000

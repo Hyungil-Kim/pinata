@@ -10,11 +10,11 @@ public class UIManager : MonoBehaviour
 	public OptionManager optionManager;
 	public GameObject startScene;
 	public GameObject ingameScene;
-	public GameObject gameOverScene;
+	public GameOver gameOverScene;
 	public GameObject optionPanel;
-	public GameObject endScene;
+	public EndUiScript endScene;
 	public GameObject animationCamera;
-	public GameObject shopPanel;
+	public ShopScript shopPanel;
 
     public Button playButton;
     public Text levelText;
@@ -34,10 +34,10 @@ public class UIManager : MonoBehaviour
 	private void Awake()
 	{
         gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
-		stageLevel = gameManager.stageLevel;
 	}
 	void Start()
     {
+		stageLevel = gameManager.stageLevel;
        levelText.text = $"STAGE {stageLevel}";
     }
 
@@ -58,11 +58,11 @@ public class UIManager : MonoBehaviour
 				break;
 			case GameManager.State.Finish:
 				time += Time.deltaTime;
-				if (time > 2f && endScene.activeSelf == false)
+				if (time > 2f && endScene.gameObject.activeSelf == false)
 				{
 					ingameScene.SetActive(false);
 					optionButton.gameObject.SetActive(false);
-					endScene.SetActive(true);
+					endScene.gameObject.SetActive(true);
 				}
 				break;
 		}
@@ -97,10 +97,12 @@ public class UIManager : MonoBehaviour
 	public void OnclickAdButton()
 	{
 		//±§∞ÌΩ√√ª
+		gameManager.Save();
 	}
 	public void OnclickShopButton()
 	{
-		shopPanel.SetActive(true);
+		shopPanel.gameObject.SetActive(true);
 		startScene.SetActive(false);
+		optionButton.gameObject.SetActive(false);
 	}
 }

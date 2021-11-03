@@ -254,8 +254,8 @@ RectTransform:
   m_Father: {fileID: 462717993647327784}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 35, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1151,6 +1151,7 @@ MonoBehaviour:
   endScore: {fileID: 462717994537156896}
   animator: {fileID: 668478877878884900}
   changetime: 0.5
+  endSound: {fileID: 0}
 --- !u!1 &462717993911045228
 GameObject:
   m_ObjectHideFlags: 0
@@ -1184,7 +1185,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1553,15 +1554,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7128a246ab122c742ae6eda8ac6806cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 6043745817387277116, guid: 9d115227e13cd3341b01dc32195e1bc4, type: 3}
   optionManager: {fileID: 462717994396406784}
   startScene: {fileID: 668478876352949174}
   ingameScene: {fileID: 6437418236327296009}
-  gameOverScene: {fileID: 668478877896717997}
+  gameOverScene: {fileID: 668478877896717999}
   optionPanel: {fileID: 462717993720330200}
-  endScene: {fileID: 462717993872203361}
+  endScene: {fileID: 668478877345093763}
   animationCamera: {fileID: 668478877454162717}
-  shopPanel: {fileID: 668478876957828141}
+  shopPanel: {fileID: 668478877856738809}
   playButton: {fileID: 668478877098906128}
   levelText: {fileID: 668478878024648108}
   showGoal: {fileID: 462717992507959316}
@@ -1571,7 +1572,6 @@ MonoBehaviour:
   shopButton: {fileID: 668478877497516432}
   adButton: {fileID: 668478876701187798}
   cake: {fileID: 668478876949764948}
-  stageLevel: 1
   gameStart: 0
   pause: 0
 --- !u!1 &462717994082556086
@@ -1978,7 +1978,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -12.9, y: -12.4}
+  m_AnchoredPosition: {x: -5, y: -3}
   m_SizeDelta: {x: 30, y: 40}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &462717994277556366
@@ -2527,7 +2527,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2601,8 +2601,8 @@ RectTransform:
   m_Father: {fileID: 462717992838228977}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 35, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4838,6 +4838,8 @@ MonoBehaviour:
   meshRenderer: {fileID: 1992606926528871744}
   playerMeshRenderer: {fileID: 0}
   gold: {fileID: 668478878164860637}
+  closeLength: 0
+  mask: 0
 --- !u!1 &668478876962473289
 GameObject:
   m_ObjectHideFlags: 0
@@ -5166,8 +5168,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 8, y: -126}
-  m_SizeDelta: {x: 140, y: 40}
+  m_AnchoredPosition: {x: 0, y: -229}
+  m_SizeDelta: {x: 140, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &668478877098906129
 CanvasRenderer:
@@ -7370,7 +7372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
-  m_EffectDistance: {x: 3, y: -2}
+  m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 0
 --- !u!1 &668478878030746536
 GameObject:

@@ -90,10 +90,13 @@ public class EndUiScript : MonoBehaviour
 		//광고출력
 		OnclickNextButton();
 		//재화 두배
+		uIManager.gameManager.Save();
 	}
 	public void OnclickNextButton()
 	{
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+		uIManager.gameManager.savegold += uIManager.gameManager.earnGold;
+		uIManager.gameManager.Save();
 	}
 
 }

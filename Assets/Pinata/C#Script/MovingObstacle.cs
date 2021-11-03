@@ -25,6 +25,7 @@ public class MovingObstacle : MonoBehaviour
         splinePositioner = GetComponent<Dreamteck.Splines.SplinePositioner>();
         splineComputer = GameObject.FindWithTag("Spline").GetComponent<Dreamteck.Splines.SplineComputer>();
         splinePositioner.spline = splineComputer;
+        GetComponentInChildren<Animator>().SetTrigger("idleToattack");
     }
     void Update()
     {

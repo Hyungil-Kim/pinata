@@ -12,7 +12,7 @@ TagManager:
   - Spline
   - Road
   - UIController
-  - Gold
+  - Train
   layers:
   - Default
   - TransparentFX

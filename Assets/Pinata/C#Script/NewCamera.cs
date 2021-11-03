@@ -89,7 +89,7 @@ public class NewCamera : MonoBehaviour
 				gameOverTime += Time.deltaTime;
 				if(gameOverTime >3f)
 				{
-					gameManager.UiController.gameOverScene.SetActive(true);
+					gameManager.UiController.gameOverScene.gameObject.SetActive(true);
 				}
 				break;
 		}

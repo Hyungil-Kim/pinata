@@ -20,12 +20,12 @@ public class Obstacle : MonoBehaviour
         splinePositioner = GetComponent<Dreamteck.Splines.SplinePositioner>();
         splineComputer = GameObject.FindWithTag("Spline").GetComponent<Dreamteck.Splines.SplineComputer>();
         splinePositioner.spline = splineComputer;
+        GetComponentInChildren<Animator>().SetTrigger("idleToattack");
     }
     void Update()
     {
         //if (attack)
         //{
-            GetComponentInChildren<Animator>().SetTrigger("idleToattack");
         //    attack = false;
         //}
         //else if (Vector3.Distance(gameObject.transform.position, gameManager.player.transform.position) < 10f)

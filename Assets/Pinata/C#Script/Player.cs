@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
 	public int gold;
 	public float lift;
 	public float power;
+	public float TrainPower;
 	public float deadPower;
 	private double scoreMove = 0f;
 	public bool gameStart;
@@ -256,30 +257,61 @@ public class Player : MonoBehaviour
 				hurtparticle.Play();
 				audioSource.PlayOneShot(hurtSound);
 				animator.SetTrigger("runTodamage");
-				var colscore = collision.transform.GetComponent<Obstacle>().score;
-				var colscale = collision.transform.GetComponent<Obstacle>().scale;
-				if(colscore >= score)
+				if (collision.transform.GetComponent<Obstacle>() != null)
 				{
-					colscore = 0;
-				}
-				else
-				{
-				score -= colscore;
-				}
-				if (transform.localScale.x > 1f)
-				{
-					transform.localScale -= new Vector3(colscale, colscale, colscale);	
-				}
-				if (score <= 0)
-				{
-					life--;
-					Debug.Log($"life = { life }");
-				}
-				if (life == 0)
-				{
-					playerForce(collision);
-				}
+					var colscore = collision.transform.GetComponent<Obstacle>().score;
+					var colscale = collision.transform.GetComponent<Obstacle>().scale;
 
+
+					if (colscore >= score)
+					{
+						colscore = 0;
+					}
+					else
+					{
+						score -= colscore;
+					}
+					if (transform.localScale.x > 1f)
+					{
+						transform.localScale -= new Vector3(colscale, colscale, colscale);
+					}
+					if (score <= 0)
+					{
+						life--;
+						Debug.Log($"life = { life }");
+					}
+					if (life == 0)
+					{
+						playerForce(collision);
+					}
+				}
+				if (collision.transform.GetComponent<MovingObstacle>() != null)
+				{
+					var colscore = collision.transform.GetComponent<MovingObstacle>().score;
+					var colscale = collision.transform.GetComponent<MovingObstacle>().scale;
+
+					if (colscore >= score)
+					{
+						colscore = 0;
+					}
+					else
+					{
+						score -= colscore;
+					}
+					if (transform.localScale.x > 1f)
+					{
+						transform.localScale -= new Vector3(colscale, colscale, colscale);
+					}
+					if (score <= 0)
+					{
+						life--;
+						Debug.Log($"life = { life }");
+					}
+					if (life == 0)
+					{
+						playerForce(collision);
+					}
+				}
 				Debug.Log(score);
 			}
 		}
@@ -331,7 +363,23 @@ public class Player : MonoBehaviour
 				//playerForce(collision);
 			}
 		}
-		
+		if (collision.transform.tag == "Train")
+		{
+			{
+				collision.gameObject.GetComponent<Animator>().enabled = false;
+				var force = collision.gameObject.transform.position - transform.position;
+				force.Normalize();
+				force.y += lift;
+				if (playingParticle)
+				{
+					lastparticle.Play();
+					playingParticle = false;
+					particleTime = 0;
+				}
+				collision.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+				collision.rigidbody.AddForce(force * TrainPower);
+			}
+		}
 	}
 	//날라기기 함수
 	private void playerForce(Collision collision)

@@ -7,9 +7,9 @@ using UnityEngine.EventSystems;
 public class ShopScript : MonoBehaviour
 {
 	public GameManager gameManager;
-    public UIManager uIManager;
+	public UIManager uIManager;
 	public Button[] shopButton;
-    public Button goldButton;
+	public Button goldButton;
 	public Button buyButtonAD;
 	public Button endButton;
 	public Animator animator;
@@ -20,108 +20,135 @@ public class ShopScript : MonoBehaviour
 	public SkinnedMeshRenderer playerMeshRenderer;
 	public Text gold;
 	private int randomNum;
-	private int closeLength;
-	private int mask;
+	public int closeLength;
+	public int mask;
 	private int num;
-    //private Vector3 scaleNum;
-    //private Vector3 changeNum;
-    //private bool on;
-    //private float time;
-    //public float changetime;
-    void Awake()
-    {
+	//private Vector3 scaleNum;
+	//private Vector3 changeNum;
+	//private bool on;
+	//private float time;
+	//public float changetime;
+	void Awake()
+	{
 
 	}
 
-    private void OnEnable()
-    {
-        uIManager.animationCamera.SetActive(true);
-    }
+	private void OnEnable()
+	{
+		uIManager.animationCamera.SetActive(true);
+	}
 	private void Start()
 	{
 		for (int i = 0; i < shopButton.Length; i++)
 		{
 			shopButtonComponent[i] = shopButton[i].GetComponent<ShopButton>();
 		}
-		for (int i =0; i<this.shopButton.Length;i++)
+		for (int i = 0; i < this.shopButton.Length; i++)
 		{
 			int index = i;
 			shopButton[index].onClick.AddListener(() => this.OnclickEvent(index));
 		}
 
-		for (int i = 0; i < shopButton.Length; i++)
+		if (mask == 0)
 		{
-			if (shopButtonComponent[i].open)
+			for (int i = 0; i < shopButton.Length; i++)
 			{
-				mask += 1 << i;
+				if (shopButtonComponent[i].open)
+				{
+					mask += 1 << i;
+				}
+				else
+				{
+					closeLength++;
+				}
 			}
-			else
+		}
+		else
+		{
+			for (int i = 0; i < shopButton.Length; i++)
 			{
-				closeLength++;
+				if ((mask >> i & 1) == 1)
+				{
+					shopButtonComponent[i].open = true;
+				}
+				if(playerMeshRenderer.material.mainTexture == shopButtonComponent[i].texture)
+				{
+					shopButtonComponent[i].curClick = true;
+				}
+				else
+				{
+					shopButtonComponent[i].curClick = false;
+				}
 			}
+
+			
+
 		}
 	}
 
 	void Update()
-    {
-		
-		 gold.text = gameManager.changeUnit(uIManager.gameManager.savegold);
+	{
+
+		gold.text = gameManager.changeUnit(uIManager.gameManager.savegold);
 	}
-	
+
 	public void OnclickEvent(int index)
 	{
-		for(int i =0; i< shopButton.Length;i++)
+		for (int i = 0; i < shopButton.Length; i++)
 		{
 			shopButtonComponent[i].curClick = false;
 		}
 		shopButtonComponent[index].curClick = true;
 		meshRenderer.material.mainTexture = shopButtonComponent[index].texture;
 		playerMeshRenderer.material.mainTexture = shopButtonComponent[index].texture;
-		
+
 		animator.SetTrigger("ClickShop");
 	}
 	public void setInterectable()
 	{
 		if (closeLength != 0)
 		{
-			Debug.Log(1);
 			if (gameManager.savegold >= 9000)
 			{
 				gameManager.savegold -= 9000;
 				shopButtonComponent[num].open = true;
 				closeLength--;
 				mask += 1 << num;
+				gameManager.Save();
 			}
 		}
 	}
 	public void OnclickGoldButton()
 	{
+		//±¤°íº¸±â
 		//°ñµå¾ò±â
+		gameManager.Save();
 	}
 	public void OnclickUnlockbutton()
 	{
-		
-			randomNum = Random.Range(0,closeLength);
+		randomNum = Random.Range(0, closeLength);
 		int count = -1;
 		for (int i = 0; i < shopButton.Length; i++)
 		{
 			if ((mask >> i & 1) == 0)
 			{
 				count++;
-				if(count == randomNum)
+				if (count == randomNum)
 				{
-					num = i; 
+					num = i;
 					break;
 				}
 			}
 		}
 
-			setInterectable();
+		setInterectable();
 	}
 	public void OnClickBackButton()
 	{
 		gameObject.SetActive(false);
 		uIManager.startScene.SetActive(true);
+		uIManager.optionButton.gameObject.SetActive(true);
+		gameManager.Save();
 	}
 
 
