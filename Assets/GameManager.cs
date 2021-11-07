@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
 	public double totalScore = 0f;
 	[HideInInspector]
 	private Scene scene;
-	[HideInInspector]
+	
 	public int stageLevel;
 
 	public UIManager UiController;
@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
 	public bool gameStart;
 	[HideInInspector]
 	public double percentScore;
-	
+
 	public int savegold;
 	[HideInInspector]
 	public int earnGold;
@@ -68,10 +68,10 @@ public class GameManager : MonoBehaviour
 			switch (state)
 			{
 				case State.Intro:
-					
+
 					break;
 				case State.Start:
-					
+
 					follower.followSpeed = saveSpeed;
 					UiController.ingameScene.SetActive(true);
 					break;
@@ -112,16 +112,27 @@ public class GameManager : MonoBehaviour
 			shopScript.closeLength = data.closeLength;
 			shopScript.playerMeshRenderer.sharedMaterial.mainTexture = Resources.Load<Texture2D>(data.playerSkin);
 			shopScript.meshRenderer.sharedMaterial.mainTexture = Resources.Load<Texture2D>(data.avatarSkin);
+			UiController.optionManager.effectSlider.value = data.effectvolume;
+			UiController.optionManager.backSlider.value = data.backgroundvolume;
+
+			if (SceneManager.GetActiveScene().buildIndex != stageLevel)
+			{
+				SceneManager.LoadScene(stageLevel);
+			}
 		}
 	}
 
 	private void Awake()
 	{
+		GoogleMobileAdTest.FindTag();
+		if (SceneManager.GetActiveScene().buildIndex == 0)
+		{
+			GoogleMobileAdTest.Init();
+		}
 		CurrentState = State.Intro;
 		player = GameObject.FindWithTag("Player");
 		follower = player.GetComponent<Dreamteck.Splines.SplineFollower>();
 		saveSpeed = follower.followSpeed;
-		Debug.Log(UiController);
 		scene = SceneManager.GetActiveScene();
 		stageLevel = scene.buildIndex + 1;
 		shopScript = UiController.shopPanel;
@@ -157,6 +168,23 @@ public class GameManager : MonoBehaviour
 			case State.dead:
 				break;
 		}
+			if (!(Application.internetReachability == NetworkReachability.NotReachable) && GoogleMobileAdTest.interstitial == null)
+			{
+				GoogleMobileAdTest.RequestInterstitial();
+			}
+			if (!(Application.internetReachability == NetworkReachability.NotReachable) && GoogleMobileAdTest.interstitial2 == null)
+			{
+				GoogleMobileAdTest.RequestInterstitial2();
+			}
+			if (!(Application.internetReachability == NetworkReachability.NotReachable) && GoogleMobileAdTest.rewardedAd == null)
+			{
+				GoogleMobileAdTest.RequestReward();
+			}
+			if (!(Application.internetReachability == NetworkReachability.NotReachable) && GoogleMobileAdTest.rewardedAd2 == null)
+			{
+				GoogleMobileAdTest.RequestReward2();
+			}
+		
 	}
 	public void setStateEnd()
 	{
@@ -191,7 +219,7 @@ public class GameManager : MonoBehaviour
 
 	public string changeUnit(double score)
 	{
-		if(score/1000 >= 1)//k
+		if (score / 1000 >= 1)//k
 		{
 			score /= 1000;
 			if (score / 1000 >= 1)//m
@@ -200,7 +228,7 @@ public class GameManager : MonoBehaviour
 				return $"{ score.ToString("F1")}M";
 			}
 			return $"{ score.ToString("F1")}K";
-			
+
 		}
 		else
 		{

@@ -95,4 +95,34 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Stage30.unity
     guid: 7746cba058fbe274faf3b5e3cb5f758e
+  - enabled: 1
+    path: Assets/Scenes/Stage31.unity
+    guid: d938710f5e488444bbb21abee49eabf1
+  - enabled: 1
+    path: Assets/Scenes/Stage32.unity
+    guid: b1dc1c8ff26808340bee3e35f896fd91
+  - enabled: 1
+    path: Assets/Scenes/Stage33.unity
+    guid: e9a2490bcc18e8a40bc6d6da13db7c10
+  - enabled: 1
+    path: Assets/Scenes/Stage34.unity
+    guid: a588469c3be32d846b11f237099b5d33
+  - enabled: 1
+    path: Assets/Scenes/Stage35.unity
+    guid: 5187414a614dd414c984866dfb572f9f
+  - enabled: 1
+    path: Assets/Scenes/Stage36.unity
+    guid: b942960aa05f6b146b5b231967549b22
+  - enabled: 1
+    path: Assets/Scenes/Stage37.unity
+    guid: a2d34c0b7b087f2448f8500805872940
+  - enabled: 1
+    path: Assets/Scenes/Stage38.unity
+    guid: 3dbcd1b8e895f1043a6d0119dedf1346
+  - enabled: 1
+    path: Assets/Scenes/Stage39.unity
+    guid: 8db0fcd94ae2e39418626a31a960e466
+  - enabled: 1
+    path: Assets/Scenes/Stage40.unity
+    guid: e94b69e078547c34e8d9935b1b9a28e8
   m_configObjects: {}

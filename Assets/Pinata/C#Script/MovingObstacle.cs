@@ -7,7 +7,6 @@ public class MovingObstacle : MonoBehaviour
     public double score;
     public float scale;
     public float speed;
-    private bool attack;
     public float minValue;
     public float maxValue;
     private float time;
@@ -78,11 +77,5 @@ public class MovingObstacle : MonoBehaviour
         }
 
     }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.transform.tag == "Player")
-        {
-            attack = true;
-        }
-    }
+
 }

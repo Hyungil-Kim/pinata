@@ -11,7 +11,8 @@ public class PlayerData
 	public int closeLength;
 	public string playerSkin;
 	public string avatarSkin;
-	public bool[] curButton;
+	public float backgroundvolume;
+	public float effectvolume;
 
 	public PlayerData(GameManager gameManager)
 	{
@@ -21,7 +22,8 @@ public class PlayerData
 		mask = gameManager.UiController.shopPanel.mask;
 		playerSkin = gameManager.player.GetComponentInChildren<SkinnedMeshRenderer>(true).sharedMaterial.mainTexture.name;
 		avatarSkin = gameManager.UiController.animationCamera.GetComponentInChildren<SkinnedMeshRenderer>(true).sharedMaterial.mainTexture.name;
-
+		backgroundvolume = gameManager.UiController.optionManager.backSlider.value;
+		effectvolume = gameManager.UiController.optionManager.effectSlider.value;
 	}
 	
 }

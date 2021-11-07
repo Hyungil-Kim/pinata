@@ -9,6 +9,8 @@ public class ShopButton : MonoBehaviour
     private Image image;
     private Button button;
     public Texture texture;
+    public Sprite ClickedSprite;
+    public Sprite DeClickedSprite;
     public bool curClick;
     public bool open;
     
@@ -23,11 +25,11 @@ public class ShopButton : MonoBehaviour
     {
         if(curClick)
 		{
-            image.sprite = shopScript.selectedImage;
+            image.sprite = ClickedSprite;
 		}
 		else
         {
-            image.sprite = shopScript.deSelectedImage;
+            image.sprite = DeClickedSprite;
         }
         if(open)
 		{

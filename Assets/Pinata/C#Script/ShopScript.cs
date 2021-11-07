@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-
+using TMPro;
 public class ShopScript : MonoBehaviour
 {
 	public GameManager gameManager;
@@ -13,16 +13,17 @@ public class ShopScript : MonoBehaviour
 	public Button buyButtonAD;
 	public Button endButton;
 	public Animator animator;
-	public Sprite selectedImage;
-	public Sprite deSelectedImage;
 	public ShopButton[] shopButtonComponent;
 	public SkinnedMeshRenderer meshRenderer;
 	public SkinnedMeshRenderer playerMeshRenderer;
-	public Text gold;
+	public TextMeshProUGUI gold;
+	public Sprite Button750;
+	public Sprite Button1250;
 	private int randomNum;
 	public int closeLength;
 	public int mask;
 	private int num;
+	private int price;
 	//private Vector3 scaleNum;
 	//private Vector3 changeNum;
 	//private bool on;
@@ -80,16 +81,26 @@ public class ShopScript : MonoBehaviour
 					shopButtonComponent[i].curClick = false;
 				}
 			}
-
-			
-
 		}
 	}
 
 	void Update()
 	{
-
 		gold.text = gameManager.changeUnit(uIManager.gameManager.savegold);
+		if(closeLength == 2)
+		{
+			buyButtonAD.image.sprite = Button750;
+			price = 750;
+		}
+		else if(closeLength <= 1)
+		{
+			buyButtonAD.image.sprite = Button1250;
+			price = 1250;
+		}
+		else
+		{
+			price = 250;
+		}
 	}
 
 	public void OnclickEvent(int index)
@@ -108,9 +119,9 @@ public class ShopScript : MonoBehaviour
 	{
 		if (closeLength != 0)
 		{
-			if (gameManager.savegold >= 9000)
+			if (gameManager.savegold >= price)
 			{
-				gameManager.savegold -= 9000;
+				gameManager.savegold -= price;
 				shopButtonComponent[num].open = true;
 				closeLength--;
 				mask += 1 << num;
@@ -120,8 +131,11 @@ public class ShopScript : MonoBehaviour
 	}
 	public void OnclickGoldButton()
 	{
-		//±¤°íº¸±â
-		//°ñµå¾ò±â
+		if(Application.internetReachability == NetworkReachability.NotReachable)
+		{
+
+		}
+		GoogleMobileAdTest.OnClickReward();
 		gameManager.Save();
 	}
 	public void OnclickUnlockbutton()

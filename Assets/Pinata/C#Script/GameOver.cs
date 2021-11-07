@@ -14,7 +14,6 @@ public class GameOver : MonoBehaviour
 	private float time;
 	public float changetime;
 
-	// Start is called before the first frame update
 	private void Awake()
 	{
 		scaleNum = endButtonAD.GetComponent<RectTransform>().localScale;
@@ -24,6 +23,7 @@ public class GameOver : MonoBehaviour
 	private void OnEnable()
 	{
 		uIManager.animationCamera.SetActive(true);
+		uIManager.gameManager.earnGold = 0;
 	}
 	void Start()
 	{
@@ -54,15 +54,35 @@ public class GameOver : MonoBehaviour
 		{
 			time = 0f;
 		}
+
+		if(SceneManager.sceneCountInBuildSettings == SceneManager.GetActiveScene().buildIndex + 1)
+		{
+			endButtonAD.gameObject.SetActive(false);
+		}
+
 	}
 	public void OnclickAdButton()
 	{
-		//±¤°íÃâ·Â
-		OnclickNextbutton();
+		if (Application.internetReachability == NetworkReachability.NotReachable)
+		{
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+		}
+		else
+		{
+		GoogleMobileAdTest.OnClickReward2();
+		}
+		uIManager.gameManager.stageLevel += 1;
 	}
 	public void OnclickNextbutton()
 	{
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+		if (Application.internetReachability == NetworkReachability.NotReachable)
+		{
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		}
+		else
+		{
+		GoogleMobileAdTest.OnclickInterstitial2();
+		}
 	}
 
 }

@@ -754,6 +754,7 @@ MonoBehaviour:
   - {fileID: 8220058962289811365}
   goldButton: {fileID: 1073984089}
   buyButtonAD: {fileID: 132341952}
+  endButton: {fileID: 0}
   animator: {fileID: 1582391161}
   selectedImage: {fileID: 21300000, guid: 02906ad5d1276d64f8e1b04703831dda, type: 3}
   deSelectedImage: {fileID: 21300000, guid: bccfe167d9bf69048a9ec1d5332dd41b, type: 3}
@@ -766,6 +767,9 @@ MonoBehaviour:
   - {fileID: 0}
   meshRenderer: {fileID: 1360580280594708509}
   playerMeshRenderer: {fileID: 0}
+  gold: {fileID: 0}
+  closeLength: 0
+  mask: 0
 --- !u!1 &166895110
 GameObject:
   m_ObjectHideFlags: 0
@@ -1463,7 +1467,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f3582c22c4f44d24a978a843ed8d7bfa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c77f223f13b958c48ab747de743b628b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1987,8 +1991,8 @@ RectTransform:
   m_Father: {fileID: 40836821}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.51, y: 0}
+  m_AnchorMax: {x: 0.51, y: 1}
   m_AnchoredPosition: {x: 0, y: -25}
   m_SizeDelta: {x: 55, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2440,7 +2444,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.51, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5156,7 +5160,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ec9df3acfe4431946802c011c43d29a7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0de1b5170eafc9247ab7a54504dde564, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5869,7 +5873,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 1, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7371,7 +7375,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7705,10 +7709,11 @@ MonoBehaviour:
   optionManager: {fileID: 1093546155745087837}
   startScene: {fileID: 895315691}
   ingameScene: {fileID: 5769291684553374036}
-  gameOverScene: {fileID: 1365341168}
+  gameOverScene: {fileID: 0}
   optionPanel: {fileID: 1093546156427997829}
-  endScene: {fileID: 1093546156277685052}
+  endScene: {fileID: 0}
   animationCamera: {fileID: 1996627520}
+  shopPanel: {fileID: 0}
   playButton: {fileID: 14079821}
   levelText: {fileID: 1224802545}
   showGoal: {fileID: 1093546155483966793}
@@ -7717,9 +7722,7 @@ MonoBehaviour:
   optionButton: {fileID: 1093546155745087649}
   shopButton: {fileID: 1754571981}
   adButton: {fileID: 404986763}
-  gold: {fileID: 1421183074}
   cake: {fileID: 166895113}
-  stageLevel: 1
   gameStart: 0
   pause: 0
 --- !u!1 &1093546156001795563
@@ -8219,6 +8222,7 @@ MonoBehaviour:
   endScore: {fileID: 1093546155600659581}
   animator: {fileID: 1582391161}
   changetime: 0.5
+  endSound: {fileID: 0}
 --- !u!1 &1093546156354703220
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -17,14 +18,14 @@ public class UIManager : MonoBehaviour
 	public ShopScript shopPanel;
 
     public Button playButton;
-    public Text levelText;
+    public TextMeshProUGUI levelText;
     public Slider showGoal;
 	public Slider tutorial;
 	public Button restart;
 	public Button optionButton;
 	public Button shopButton;
 	public Button adButton;
-	public Text cake;
+	public TextMeshProUGUI cake;
     private int stageLevel;
     public bool gameStart;
 	public bool pause;
@@ -83,7 +84,14 @@ public class UIManager : MonoBehaviour
 	}
 	public void OnclickRestart()
 	{
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		if(Application.internetReachability == NetworkReachability.NotReachable)
+		{
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		}
+		else
+		{
+		GoogleMobileAdTest.OnclickInterstitial2();
+		}
 	}
 	public void OnclickOption()
 	{
@@ -96,7 +104,7 @@ public class UIManager : MonoBehaviour
 	}
 	public void OnclickAdButton()
 	{
-		//±§∞ÌΩ√√ª
+		GoogleMobileAdTest.OnClickReward();
 		gameManager.Save();
 	}
 	public void OnclickShopButton()

@@ -1,5 +1,5 @@
 {
-    "m_SelectedDeviceId": "127.0.0.1:5555",
+    "m_SelectedDeviceId": "R3CN30DGV1W",
     "m_SelectedPackage": {
         "deviceId": "",
         "name": "",
@@ -18,6 +18,12 @@
             "deviceId": "127.0.0.1:5555",
             "name": "com.unity3d.mobileremote",
             "processId": 3239,
+            "exited": true
+        },
+        {
+            "deviceId": "127.0.0.1:5555",
+            "name": "com.bluestacks.launcher",
+            "processId": 27978,
             "exited": false
         }
     ],

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class EndUiScript : MonoBehaviour
 {
@@ -13,12 +14,14 @@ public class EndUiScript : MonoBehaviour
 	public GameObject awesome;
 	public Button endButton;
 	public Button endButtonAD;
-	public Text endScore;
+	public TextMeshProUGUI endScore;
 	public Animator animator;
+	public Image finalImage;
 	private Vector3 scaleNum;
 	private Vector3 changeNum;
 	private bool on;
 	private float time;
+	private float opentime;
 	public float changetime;
 	private AudioSource audioSource;
 	public AudioClip endSound;
@@ -56,47 +59,81 @@ public class EndUiScript : MonoBehaviour
 	}
 	public void Update()
 	{
-		time += Time.deltaTime;
-		if (!on)
+		if (SceneManager.sceneCountInBuildSettings == SceneManager.GetActiveScene().buildIndex + 1)
 		{
-			endButtonAD.GetComponent<RectTransform>().localScale = Vector3.Lerp(scaleNum, changeNum, time / changetime);
-			if (time >= changetime)
-			{
-				time = 0f;
-				on = true;
-			}
+			finalImage.gameObject.SetActive(true);
 		}
 		else
 		{
-			endButtonAD.GetComponent<RectTransform>().localScale = Vector3.Lerp(changeNum, scaleNum, time / changetime);
-			if (time >= changetime)
+			time += Time.deltaTime;
+			opentime += Time.deltaTime;
+			if (!on)
+			{
+				endButtonAD.GetComponent<RectTransform>().localScale = Vector3.Lerp(scaleNum, changeNum, time / changetime);
+				if (time >= changetime)
+				{
+					time = 0f;
+					on = true;
+				}
+			}
+			else
+			{
+				endButtonAD.GetComponent<RectTransform>().localScale = Vector3.Lerp(changeNum, scaleNum, time / changetime);
+				if (time >= changetime)
+				{
+					time = 0f;
+					on = false;
+				}
+			}
+			if (time > changetime)
 			{
 				time = 0f;
-				on = false;
 			}
-		}
-		if(time > changetime)
-		{
-			time = 0f;
-		}
-		if (animator.GetCurrentAnimatorStateInfo(0).IsName("Cast Spell") && !endbool)
-		{
-			audioSource.PlayOneShot(endSound);
-			endbool = true;
+			if (animator.GetCurrentAnimatorStateInfo(0).IsName("Cast Spell") && !endbool)
+			{
+				audioSource.PlayOneShot(endSound);
+				endbool = true;
+			}
+			if (opentime >= 2f)
+			{
+				endButton.gameObject.SetActive(true);
+			}
 		}
 	}
 	public void OnclickAdButton()
 	{
-		//광고출력
-		OnclickNextButton();
-		//재화 두배
+		if (Application.internetReachability == NetworkReachability.NotReachable)
+		{
+			if (SceneManager.sceneCountInBuildSettings == SceneManager.GetActiveScene().buildIndex + 1)
+			{
+				SceneManager.LoadScene(0);
+			}
+			else
+			{
+				SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+			}
+		}
+		else
+		{
+		GoogleMobileAdTest.OnClickReward2();
+		}
+		uIManager.gameManager.savegold += uIManager.gameManager.earnGold;
+		uIManager.gameManager.stageLevel += 1;
 		uIManager.gameManager.Save();
 	}
 	public void OnclickNextButton()
 	{
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+		if (Application.internetReachability == NetworkReachability.NotReachable)
+		{
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+		}
+		else
+		{
+		GoogleMobileAdTest.OnclickInterstitial();
+		}
 		uIManager.gameManager.savegold += uIManager.gameManager.earnGold;
+		uIManager.gameManager.stageLevel += 1;
 		uIManager.gameManager.Save();
+	
 	}
-
 }
