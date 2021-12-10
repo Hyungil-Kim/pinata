@@ -11,7 +11,7 @@ public class MovingObstacle : MonoBehaviour
     public float maxValue;
     private float time;
     private bool up;
-
+    public int candy;
     private GameManager gameManager;
     private Dreamteck.Splines.SplinePositioner splinePositioner;
     private Dreamteck.Splines.SplineComputer splineComputer;

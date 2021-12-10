@@ -20,15 +20,8 @@ public class OptionManager : MonoBehaviour
 	public Button effectSoundDown;
 
 	public Button exit;
-
-	void Start()
-	{
-
-	}
-
 	void Update()
 	{
-
 		AudioControl();
 	}
 

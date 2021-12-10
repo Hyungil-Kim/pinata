@@ -56,7 +56,6 @@ public class GameManager : MonoBehaviour
 	public double percentScore;
 
 	public int savegold;
-	[HideInInspector]
 	public int earnGold;
 	private ShopScript shopScript;
 	public State CurrentState
@@ -115,20 +114,15 @@ public class GameManager : MonoBehaviour
 			UiController.optionManager.effectSlider.value = data.effectvolume;
 			UiController.optionManager.backSlider.value = data.backgroundvolume;
 
-			if (SceneManager.GetActiveScene().buildIndex != stageLevel)
+			if (SceneManager.GetActiveScene().buildIndex != stageLevel-1)
 			{
-				SceneManager.LoadScene(stageLevel);
+				SceneManager.LoadScene(stageLevel-1);
 			}
 		}
 	}
 
 	private void Awake()
 	{
-		GoogleMobileAdTest.FindTag();
-		if (SceneManager.GetActiveScene().buildIndex == 0)
-		{
-			GoogleMobileAdTest.Init();
-		}
 		CurrentState = State.Intro;
 		player = GameObject.FindWithTag("Player");
 		follower = player.GetComponent<Dreamteck.Splines.SplineFollower>();
@@ -150,11 +144,20 @@ public class GameManager : MonoBehaviour
 		{
 			totalScore += item.GetComponent<Item>().score;
 		}
+		GoogleMobileAdTest.FindTag();
+		if (!GoogleMobileAdTest.initon)
+		{
+			GoogleMobileAdTest.Init();
+		}
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
+		if (GoogleMobileAdTest.initon == false)
+		{
+			GoogleMobileAdTest.Init();
+		}
 		switch (state)
 		{
 			case State.Intro:
@@ -168,22 +171,7 @@ public class GameManager : MonoBehaviour
 			case State.dead:
 				break;
 		}
-			if (!(Application.internetReachability == NetworkReachability.NotReachable) && GoogleMobileAdTest.interstitial == null)
-			{
-				GoogleMobileAdTest.RequestInterstitial();
-			}
-			if (!(Application.internetReachability == NetworkReachability.NotReachable) && GoogleMobileAdTest.interstitial2 == null)
-			{
-				GoogleMobileAdTest.RequestInterstitial2();
-			}
-			if (!(Application.internetReachability == NetworkReachability.NotReachable) && GoogleMobileAdTest.rewardedAd == null)
-			{
-				GoogleMobileAdTest.RequestReward();
-			}
-			if (!(Application.internetReachability == NetworkReachability.NotReachable) && GoogleMobileAdTest.rewardedAd2 == null)
-			{
-				GoogleMobileAdTest.RequestReward2();
-			}
+		
 		
 	}
 	public void setStateEnd()
@@ -235,6 +223,4 @@ public class GameManager : MonoBehaviour
 			return score.ToString();
 		}
 	}
-
-
 }

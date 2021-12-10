@@ -7,7 +7,7 @@ public class Obstacle : MonoBehaviour
     public double score;
     public float scale;
     private bool attack;
-
+    public int candy;
     private GameManager gameManager;
     private Dreamteck.Splines.SplinePositioner splinePositioner;
     private Dreamteck.Splines.SplineComputer splineComputer;

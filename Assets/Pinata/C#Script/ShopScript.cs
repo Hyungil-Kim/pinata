@@ -131,11 +131,10 @@ public class ShopScript : MonoBehaviour
 	}
 	public void OnclickGoldButton()
 	{
-		if(Application.internetReachability == NetworkReachability.NotReachable)
+		if(GoogleMobileAdTest.rewardedAd.IsLoaded())
 		{
-
+			GoogleMobileAdTest.OnClickReward();
 		}
-		GoogleMobileAdTest.OnClickReward();
 		gameManager.Save();
 	}
 	public void OnclickUnlockbutton()

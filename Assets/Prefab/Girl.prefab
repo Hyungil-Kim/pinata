@@ -593,6 +593,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 200
   scale: 0
+  candy: 1
 --- !u!114 &6865283467930923819
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -69,6 +69,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 500
   scale: 0.3
+  candy: 3
 --- !u!114 &9116830474725119600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,6 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 500
   scale: 0.3
+  candy: 3
 --- !u!1001 &4764038202437843427
 PrefabInstance:
   m_ObjectHideFlags: 0

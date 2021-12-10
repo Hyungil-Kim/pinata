@@ -260,6 +260,7 @@ public class Player : MonoBehaviour
 				{
 					var colscore = collision.transform.GetComponent<Obstacle>().score;
 					var colscale = collision.transform.GetComponent<Obstacle>().scale;
+					var colcandy = collision.transform.GetComponent<Obstacle>().candy;
 					hurtparticle.transform.position = collision.transform.position;
 					hurtparticle.Play();
 					
@@ -285,6 +286,14 @@ public class Player : MonoBehaviour
 						life--;
 						Debug.Log($"life = { life }");
 					}
+					if (gold - colcandy <=0)
+					{
+						gold = 0;
+					}
+					else
+					{
+						gold -= colcandy;
+					}
 					if (life == 0)
 					{
 						playerForce(collision);
@@ -294,8 +303,9 @@ public class Player : MonoBehaviour
 				{
 					var colscore = collision.transform.GetComponent<MovingObstacle>().score;
 					var colscale = collision.transform.GetComponent<MovingObstacle>().scale;
+					var colcandy = collision.transform.GetComponent<MovingObstacle>().candy;
 					hurtparticle.transform.position = collision.transform.position;
-					hurtparticle2.Play();
+					hurtparticle.Play();
 					if (colscore >= score)
 					{
 						score = 0;
@@ -317,12 +327,19 @@ public class Player : MonoBehaviour
 						life--;
 						Debug.Log($"life = { life }");
 					}
+					if (gold - colcandy <= 0)
+					{
+						gold = 0;
+					}
+					else
+					{
+						gold -= colcandy;
+					}
 					if (life == 0)
 					{
 						playerForce(collision);
 					}
 				}
-				Debug.Log(score);
 			}
 		}
 		if (collision.transform.tag == "Item")

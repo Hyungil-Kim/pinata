@@ -63,6 +63,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 7077689974296398533}
     m_Modifications:
     - target: {fileID: 2722342759087260101, guid: b37ea372e82a6e1449051fed99efec12, type: 3}
+      propertyPath: candy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2722342759087260101, guid: b37ea372e82a6e1449051fed99efec12, type: 3}
       propertyPath: scale
       value: 0.1
       objectReference: {fileID: 0}
@@ -175,6 +179,10 @@ PrefabInstance:
     - target: {fileID: 959359204390571591, guid: f6bfed638b7eedb45a891dfed46d7f0e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3381031476920790236, guid: f6bfed638b7eedb45a891dfed46d7f0e, type: 3}
+      propertyPath: candy
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3381031476920790236, guid: f6bfed638b7eedb45a891dfed46d7f0e, type: 3}
       propertyPath: scale

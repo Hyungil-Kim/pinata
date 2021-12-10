@@ -114,6 +114,10 @@ PrefabInstance:
       value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 6998404112987305385, guid: bab5555949e79bc44a93e27b06d28b46, type: 3}
+      propertyPath: candy
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6998404112987305385, guid: bab5555949e79bc44a93e27b06d28b46, type: 3}
       propertyPath: scale
       value: 0.3
       objectReference: {fileID: 0}

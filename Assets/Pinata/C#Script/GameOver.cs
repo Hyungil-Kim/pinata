@@ -63,19 +63,20 @@ public class GameOver : MonoBehaviour
 	}
 	public void OnclickAdButton()
 	{
-		if (Application.internetReachability == NetworkReachability.NotReachable)
+		if (!GoogleMobileAdTest.rewardedAd2.IsLoaded())
 		{
-			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
 		else
 		{
 		GoogleMobileAdTest.OnClickReward2();
-		}
 		uIManager.gameManager.stageLevel += 1;
+		}
+		uIManager.gameManager.Save();
 	}
 	public void OnclickNextbutton()
 	{
-		if (Application.internetReachability == NetworkReachability.NotReachable)
+		if (!GoogleMobileAdTest.interstitial2.IsLoaded())
 		{
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
@@ -83,6 +84,7 @@ public class GameOver : MonoBehaviour
 		{
 		GoogleMobileAdTest.OnclickInterstitial2();
 		}
+		uIManager.gameManager.Save();
 	}
 
 }

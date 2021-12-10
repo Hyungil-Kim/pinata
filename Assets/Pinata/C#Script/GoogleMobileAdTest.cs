@@ -9,8 +9,8 @@ public static class GoogleMobileAdTest
 {
    
     public static readonly string interstitial1Id = "ca-app-pub-1195551850458243/6952860588";
-    public static readonly string reward1Id = "ca-app-pub-1195551850458243/1700533901";
     public static readonly string interstitial2Id = "ca-app-pub-1195551850458243/2828377777";
+    public static readonly string reward1Id = "ca-app-pub-1195551850458243/1700533901";
     public static readonly string reward2Id = "ca-app-pub-1195551850458243/8264537283";
 
     public static InterstitialAd interstitial;
@@ -18,10 +18,8 @@ public static class GoogleMobileAdTest
     public static RewardedAd rewardedAd;
     public static RewardedAd rewardedAd2;
     public static GameManager gameManager;
-    public static int count1;
-    public static int count2;
-    public static int count3;
-    public static int count4;
+    private static int plusGold;
+    public static bool initon;
     public static void Init()
     {
         List<string> deviceIds = new List<string>();
@@ -36,8 +34,10 @@ public static class GoogleMobileAdTest
             RequestInterstitial2();
             RequestReward();
             RequestReward2();
+            initon = true;
         });
     }
+    
     public static void FindTag()
 	{
         gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
@@ -50,7 +50,6 @@ public static class GoogleMobileAdTest
         }
         interstitial = new InterstitialAd(interstitial1Id);
         interstitial.OnAdClosed += HandleOnAdClosed;
-        interstitial.OnAdFailedToLoad += OnAdFailedToLoadIn1;
         AdRequest request = new AdRequest.Builder().Build();
         interstitial.LoadAd(request);
     }
@@ -60,9 +59,8 @@ public static class GoogleMobileAdTest
         {
             interstitial2.Destroy();
         }
-        interstitial2 = new InterstitialAd(interstitial1Id);
+        interstitial2 = new InterstitialAd(interstitial2Id);
         interstitial2.OnAdClosed += HandleOnAdClosed2;
-        interstitial2.OnAdFailedToLoad += OnAdFailedToLoadIn2;
         AdRequest request = new AdRequest.Builder().Build();
         interstitial2.LoadAd(request);
     }
@@ -100,7 +98,6 @@ public static class GoogleMobileAdTest
         }
         rewardedAd = new RewardedAd(reward1Id);
         rewardedAd.OnAdClosed += HandleRewardedOnAdClosed;
-        rewardedAd.OnAdFailedToLoad += OnAdFailedToLoadreward1;
         rewardedAd.OnUserEarnedReward += HandleUserEarnedReward;
         AdRequest request = new AdRequest.Builder().Build();
         rewardedAd.LoadAd(request);
@@ -111,11 +108,9 @@ public static class GoogleMobileAdTest
         {
             rewardedAd2.Destroy();
         }
-        rewardedAd2 = new RewardedAd(reward1Id);
+        rewardedAd2 = new RewardedAd(reward2Id);
         rewardedAd2.OnAdClosed += HandleRewardedOnAdClosed2;
-        rewardedAd2.OnAdFailedToLoad += OnAdFailedToLoadreward2;
         rewardedAd2.OnUserEarnedReward += HandleUserEarnedReward2;
-       
         AdRequest request = new AdRequest.Builder().Build();
         rewardedAd2.LoadAd(request);
     }
@@ -147,22 +142,10 @@ public static class GoogleMobileAdTest
     {
         if (rewardedAd2.IsLoaded())
         {
+            plusGold = gameManager.earnGold;
             rewardedAd2.Show();
         }
   
-    }
-    public static void OnAdFailedToLoadIn1(object sender, AdFailedToLoadEventArgs e) { 
-       
-    }
-        
-    public static void OnAdFailedToLoadIn2(object sender, AdFailedToLoadEventArgs e) {
-      
-    }
-    public static void OnAdFailedToLoadreward1(object sender, AdFailedToLoadEventArgs e) {
-      
-    }
-    public static void OnAdFailedToLoadreward2(object sender, AdFailedToLoadEventArgs e) {
-       
     }
     public static  void HandleUserEarnedReward(object sender, Reward args)
     {
@@ -172,6 +155,7 @@ public static class GoogleMobileAdTest
     public static void HandleUserEarnedReward2(object sender, Reward args)
     {
         int amount = (int)args.Amount;
-        gameManager.earnGold *= 2;
+         gameManager.savegold += plusGold;
+        gameManager.Save();
     }
 }

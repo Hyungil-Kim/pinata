@@ -84,14 +84,7 @@ public class UIManager : MonoBehaviour
 	}
 	public void OnclickRestart()
 	{
-		if(Application.internetReachability == NetworkReachability.NotReachable)
-		{
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-		}
-		else
-		{
-		GoogleMobileAdTest.OnclickInterstitial2();
-		}
 	}
 	public void OnclickOption()
 	{

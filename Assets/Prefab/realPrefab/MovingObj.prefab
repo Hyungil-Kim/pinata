@@ -30,6 +30,7 @@ MonoBehaviour:
   speed: 0.1
   minValue: 0
   maxValue: 2
+  candy: 1
 --- !u!114 &7281789325882432183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1008,6 +1009,19 @@ MonoBehaviour:
   _targetObject: {fileID: 0}
   _position: 0.5
   _mode: 0
+--- !u!65 &4309411303151338752
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2708342757884419565}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.428389, z: 1}
+  m_Center: {x: 0, y: 1.2348455, z: 0}
 --- !u!114 &7281789325427101622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2003,19 +2017,7 @@ MonoBehaviour:
   speed: 0.1
   minValue: 2
   maxValue: 3.5
---- !u!65 &4309411303151338752
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2708342757884419565}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2.428389, z: 1}
-  m_Center: {x: 0, y: 1.2348455, z: 0}
+  candy: 1
 --- !u!1 &7281789326816863564
 GameObject:
   m_ObjectHideFlags: 0

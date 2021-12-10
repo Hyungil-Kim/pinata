@@ -102,7 +102,7 @@ public class EndUiScript : MonoBehaviour
 	}
 	public void OnclickAdButton()
 	{
-		if (Application.internetReachability == NetworkReachability.NotReachable)
+		if (!GoogleMobileAdTest.rewardedAd2.IsLoaded())
 		{
 			if (SceneManager.sceneCountInBuildSettings == SceneManager.GetActiveScene().buildIndex + 1)
 			{
@@ -123,7 +123,7 @@ public class EndUiScript : MonoBehaviour
 	}
 	public void OnclickNextButton()
 	{
-		if (Application.internetReachability == NetworkReachability.NotReachable)
+		if (!GoogleMobileAdTest.interstitial.IsLoaded())
 		{
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 		}
@@ -131,6 +131,7 @@ public class EndUiScript : MonoBehaviour
 		{
 		GoogleMobileAdTest.OnclickInterstitial();
 		}
+
 		uIManager.gameManager.savegold += uIManager.gameManager.earnGold;
 		uIManager.gameManager.stageLevel += 1;
 		uIManager.gameManager.Save();

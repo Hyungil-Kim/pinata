@@ -1541,6 +1541,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 200
   scale: 0.1
+  candy: 1
 --- !u!114 &6553119125193940837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2817,6 +2818,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 200
   scale: 0.1
+  candy: 1
 --- !u!65 &6553119125783719246
 BoxCollider:
   m_ObjectHideFlags: 0
