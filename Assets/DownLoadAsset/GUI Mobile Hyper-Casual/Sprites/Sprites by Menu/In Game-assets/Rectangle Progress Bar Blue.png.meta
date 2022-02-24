@@ -51,6 +51,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -328,6 +329,16 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Rectangle Progress Bar Blue_8: -6766210123195233921
+      Rectangle Progress Bar Blue_6: -3499808005060448420
+      Rectangle Progress Bar Blue_2: 5758606390106128082
+      Rectangle Progress Bar Blue_7: -5479285688281662292
+      Rectangle Progress Bar Blue_3: -8131335825402966308
+      Rectangle Progress Bar Blue_5: -1144640494523836955
+      Rectangle Progress Bar Blue_0: -2363405447485572931
+      Rectangle Progress Bar Blue_4: 1170607196143498017
+      Rectangle Progress Bar Blue_1: -1484536740857614523
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

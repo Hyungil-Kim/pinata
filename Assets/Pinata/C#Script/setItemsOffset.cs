@@ -12,11 +12,11 @@ public class setItemsOffset : MonoBehaviour
     public bool leftOffset = false;
 
 
-    public float right;
-    public float rightMid;
-    public float mid;
-    public float leftMid;
-    public float left;
+    private float right = 4;
+    private float rightMid = 2;
+    private float mid =0 ;
+    private float leftMid = -2;
+    private float left = -4;
 
 
 
