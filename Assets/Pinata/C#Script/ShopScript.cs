@@ -44,7 +44,7 @@ public class ShopScript : MonoBehaviour
 		{
 			shopButtonComponent[i] = shopButton[i].GetComponent<ShopButton>();
 		}
-		for (int i = 0; i < this.shopButton.Length; i++)
+		for (int i = 0; i < shopButton.Length; i++)
 		{
 			int index = i;
 			shopButton[index].onClick.AddListener(() => this.OnclickEvent(index));
@@ -72,7 +72,7 @@ public class ShopScript : MonoBehaviour
 				{
 					shopButtonComponent[i].open = true;
 				}
-				if(playerMeshRenderer.material.mainTexture == shopButtonComponent[i].texture)
+				if (playerMeshRenderer.material.mainTexture == shopButtonComponent[i].texture)
 				{
 					shopButtonComponent[i].curClick = true;
 				}
@@ -87,12 +87,12 @@ public class ShopScript : MonoBehaviour
 	void Update()
 	{
 		gold.text = gameManager.changeUnit(uIManager.gameManager.savegold);
-		if(closeLength == 2)
+		if (closeLength == 2)
 		{
 			buyButtonAD.image.sprite = Button750;
 			price = 750;
 		}
-		else if(closeLength <= 1)
+		else if (closeLength <= 1)
 		{
 			buyButtonAD.image.sprite = Button1250;
 			price = 1250;
@@ -119,19 +119,16 @@ public class ShopScript : MonoBehaviour
 	{
 		if (closeLength != 0)
 		{
-			if (gameManager.savegold >= price)
-			{
-				gameManager.savegold -= price;
-				shopButtonComponent[num].open = true;
-				closeLength--;
-				mask += 1 << num;
-				gameManager.Save();
-			}
+			gameManager.savegold -= price;
+			shopButtonComponent[num].open = true;
+			closeLength--;
+			mask += 1 << num;
+			gameManager.Save();
 		}
 	}
 	public void OnclickGoldButton()
 	{
-		if(GoogleMobileAdTest.rewardedAd.IsLoaded())
+		if (GoogleMobileAdTest.rewardedAd.IsLoaded())
 		{
 			GoogleMobileAdTest.OnClickReward();
 		}
@@ -139,22 +136,24 @@ public class ShopScript : MonoBehaviour
 	}
 	public void OnclickUnlockbutton()
 	{
-		randomNum = Random.Range(0, closeLength);
-		int count = -1;
-		for (int i = 0; i < shopButton.Length; i++)
+		if (gameManager.savegold >= price)
 		{
-			if ((mask >> i & 1) == 0)
+			randomNum = Random.Range(0, closeLength);
+			int count = -1;
+			for (int i = 0; i < shopButton.Length; i++)
 			{
-				count++;
-				if (count == randomNum)
+				if ((mask >> i & 1) == 0)
 				{
-					num = i;
-					break;
+					count++;
+					if (count == randomNum)
+					{
+						num = i;
+						break;
+					}
 				}
 			}
+			setInterectable();
 		}
-
-		setInterectable();
 	}
 	public void OnClickBackButton()
 	{

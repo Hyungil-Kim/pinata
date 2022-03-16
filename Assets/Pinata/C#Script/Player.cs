@@ -122,7 +122,6 @@ public class Player : MonoBehaviour
 		}
 		if (animator.GetCurrentAnimatorStateInfo(0).IsName("Cast Spell") && !spellsound)
 		{
-			Debug.Log("1");
 			audioSource.PlayOneShot(castSpellSound);
 			spellsound = true;
 		}
